@@ -1,4 +1,6 @@
-﻿namespace Constants
+﻿using System;
+
+namespace Constants
 {
     public static class ErrorMessages
     {
@@ -16,6 +18,20 @@
         {
 
             return $"Can't destroy spawnable object {spawnableObjectName}. Pool space hasn't been instantiated.";
+
+        }
+
+        public static string MissingComponentException(Type constructableClass, Type componentClass)
+        {
+
+            return $"Failed to construct class {constructableClass.Name}. Prefab doesn't have component of {componentClass.Name}";
+
+        }
+
+        public static string NumbericIsEmpty(Type constructableClass, string variableName)
+        {
+
+            return $"Failed to construct class {constructableClass.Name}. {variableName} hasn't been determined.";
 
         }
 

@@ -16,4 +16,4 @@ MonoBehaviour:
   Name: Missle
   Speed: 25
   Damage: 8
-  LifeTime: 15
+  LifeTime: 10

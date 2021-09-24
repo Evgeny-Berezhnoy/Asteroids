@@ -6,6 +6,7 @@ using Controllers.Services;
 using Controllers.Shooters;
 using Interfaces;
 using Models.Constructables;
+using Models.Managers;
 using Models.ScriptableObjects;
 using Spawnables.Services;
 using Spawnables.Spawners;
@@ -17,7 +18,15 @@ namespace Initializers
 
         #region Constructors
 
-        public PlayerShooterInitializer(ShootersStorage shootersStorage, Transform playerTransform, ControllersList controllersList, PoolService poolService, InputController inputController, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController)
+        public PlayerShooterInitializer(ShootersStorage shootersStorage,
+                                        Transform playerTransform,
+                                        ControllersList controllersList,
+                                        PoolService poolService,
+                                        InputUnitManager inputUnitManager,
+                                        HealthServiceController healthServiceController,
+                                        ProjectileServiceController projectileServiceController,
+                                        GameEventsHandler gameEventsHandler,
+                                        GameStateController gameStateController)
         {
 
             var shooterModels = new LinkedList<ShooterModel>();
@@ -49,11 +58,14 @@ namespace Initializers
 
             }
 
-            var playerShooterController     = new PlayerShooterController(poolService, projectileServiceController);
+            var playerShooterController     = new PlayerShooterController(poolService, projectileServiceController, gameStateController);
             var shooterSwapperController    = new ShooterSwapperController(playerShooterController, shooterModels);
 
-            inputController.AddShootHandler(playerShooterController.Shoot);
-            inputController.AddWheelScrollHandler(shooterSwapperController.ChangeWeapon);
+            inputUnitManager.GameShoot.AddHandler(playerShooterController.Shoot);
+            inputUnitManager.GameWheel.AddHandler(shooterSwapperController.ChangeWeapon);
+
+            gameEventsHandler.AddRestartHandler(playerShooterController.StartGame);
+            gameEventsHandler.AddGameOverHandler(playerShooterController.StopGame);
 
             controllersList.AddController(playerShooterController);
 

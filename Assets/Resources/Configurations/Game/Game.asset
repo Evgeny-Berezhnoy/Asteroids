@@ -15,4 +15,6 @@ MonoBehaviour:
   ShootersStorageDirectory: Configurations/Shooters/Storages/Shooter Storage 1
   EnemiesStorageDirectory: Configurations/Enemies/Storages/Enemies
   PlayerConfigurationDirectory: Configurations/Player/Player
+  UserInterfaceConfigurationDirectory: Configurations/UI/User Interface Configuration
+    1
   ScreenMapPrefabDirectory: Prefabs/Screen map

@@ -11,7 +11,7 @@ namespace Models.ScriptableObjects
 
         #region Fields
 
-        private List<EnemyConfiguration> _enemies = new List<EnemyConfiguration>();
+        private List<EnemyConfiguration> _enemies;
 
         public float SpawnCooldown;
         public List<string> EnemyConfigurationsDirectories;
@@ -28,6 +28,8 @@ namespace Models.ScriptableObjects
 
         public void Initialize()
         {
+
+            _enemies = new List<EnemyConfiguration>();
 
             for (int i = 0; i < EnemyConfigurationsDirectories.Count; i++)
             {

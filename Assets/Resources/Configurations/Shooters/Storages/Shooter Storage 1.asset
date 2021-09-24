@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootersConfigurationsDirectories:
   - Configurations/Shooters/Instances/Laser gun
+  - Configurations/Shooters/Instances/Plasma gun

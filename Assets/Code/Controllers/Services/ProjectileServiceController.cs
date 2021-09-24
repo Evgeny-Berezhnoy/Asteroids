@@ -8,28 +8,30 @@ using Spawnables.Services;
 
 namespace Controllers.Services
 {
-    public class ProjectileServiceController : IController, IUpdate, IPoolManagerController
+    public class ProjectileServiceController : IController, IUpdate, IPoolManagerController, IGameStatementListener
     {
         
         #region Fields
 
         private PoolService _poolService;
         private List<ISpawnableObject> _projectiles = new List<ISpawnableObject>();
-
+        private GameStateController _gameStateController;
+        
         #endregion
 
         #region Interfaces Properties
 
         public PoolService PoolService => _poolService;
-
+        
         #endregion
 
         #region Constructors
 
-        public ProjectileServiceController(PoolService poolService)
+        public ProjectileServiceController(PoolService poolService, GameStateController gameStateController)
         {
 
-            _poolService = poolService;
+            _poolService            = poolService;
+            _gameStateController    = gameStateController;
 
         }
 
@@ -50,7 +52,7 @@ namespace Controllers.Services
 
                     ReturnToPool(projectile);
 
-                    return;
+                    continue;
 
                 };
 
@@ -67,6 +69,8 @@ namespace Controllers.Services
 
         public void CreateFromPool(ISpawner spawner, List<Transform> spawnPoints)
         {
+
+            if (_gameStateController.GameIsStopped) return;
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
@@ -110,6 +114,29 @@ namespace Controllers.Services
             };
 
             _projectiles.Remove(spawnableObject);
+
+        }
+
+        public void StartGame()
+        {
+            
+            for (int i = _projectiles.Count - 1; i >= 0; i--)
+            {
+
+                var projectile = _projectiles[i];
+
+                projectile.Gameobject.SetActive(false);
+                
+                ReturnToPool(projectile);
+
+            };
+
+        }
+
+        public void StopGame()
+        {
+
+            // DO NOTHING. VIOLENCE OF INTERFACE SEGREGATION PRINCIPLE
 
         }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Controllers;
 using Controllers.Damage;
+using Controllers.Move;
 using Controllers.Services;
 using ExtensionCompilation;
 using Interfaces;

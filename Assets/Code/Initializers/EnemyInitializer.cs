@@ -16,7 +16,15 @@ namespace Initializers
 
         #region Constructors
 
-        public EnemyInitializer(GameConfiguration gameConfiguration, ControllersList controllersList, PoolService poolService, HealthServiceController healthServiceController, List<RouteModel> enemiesRoutes, ProjectileServiceController projectileServiceController)
+        public EnemyInitializer(GameConfiguration gameConfiguration,
+                                ControllersList controllersList,
+                                PoolService poolService,
+                                HealthServiceController healthServiceController,
+                                List<RouteModel> enemiesRoutes,
+                                ProjectileServiceController projectileServiceController,
+                                PointsController pointsController,
+                                GameEventsHandler gameEventsHandler,
+                                GameStateController gameStateController)
         {
 
             List<EnemyConfiguration> enemies    = gameConfiguration.EnemiesStorage.Enemies;
@@ -40,7 +48,7 @@ namespace Initializers
                     
                 };
 
-                var enemySpawner = new EnemySpawner(enemyConfiguration, projectileSpawner, poolService, healthServiceController, projectileServiceController);
+                var enemySpawner = new EnemySpawner(enemyConfiguration, projectileSpawner, poolService, healthServiceController, projectileServiceController, pointsController);
 
                 poolService.CreatePool(enemySpawner);
 
@@ -48,7 +56,10 @@ namespace Initializers
 
             };
 
-            var enemyServiceController  = new EnemyServiceController(enemiesSpawners, enemiesRoutes, gameConfiguration.EnemiesStorage.SpawnCooldown, poolService);
+            var enemyServiceController  = new EnemyServiceController(enemiesSpawners, enemiesRoutes, gameConfiguration.EnemiesStorage.SpawnCooldown, poolService, gameStateController);
+
+            gameEventsHandler.AddRestartHandler(enemyServiceController.StartGame);
+            gameEventsHandler.AddGameOverHandler(enemyServiceController.StopGame);
 
             controllersList.AddController(enemyServiceController);
 

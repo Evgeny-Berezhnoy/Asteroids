@@ -10,14 +10,15 @@ using Spawnables.Spawners;
 
 namespace Controllers.Services
 {
-    public class EnemyServiceController : IController, IUpdate, IPoolServiceController, ICooldown
+    public class EnemyServiceController : IController, IUpdate, IPoolServiceController, IGameStatementListener, ICooldown
     {
 
         #region Fields
 
+        private PoolService _poolService;
         private List<EnemyController> _enemies;
         private List<RouteModel> _enemiesRoutes;
-        private PoolService _poolService;
+        private GameStateController _gameStateController;
         private EnemySpawner _currentSpawner;
         
         #endregion
@@ -33,24 +34,25 @@ namespace Controllers.Services
         public PoolService PoolService => _poolService;
         public float Cooldown { get; set; }
         public float CurrentCooldown { get; set; }
-
+        
         #endregion
 
         #region Constructors
 
-        public EnemyServiceController(List<EnemySpawner> enemySpawners, List<RouteModel> enemiesRoutes, float cooldown, PoolService poolService)
+        public EnemyServiceController(List<EnemySpawner> enemySpawners, List<RouteModel> enemiesRoutes, float cooldown, PoolService poolService, GameStateController gameStateController)
         {
 
-            EnemySpawners   = enemySpawners;
-            
-            _poolService    = poolService;
-            _enemies        = new List<EnemyController>();
-            
-            Cooldown        = cooldown;
-            CurrentCooldown = 0;
+            _poolService            = poolService;
+            _enemies                = new List<EnemyController>();
+            _enemiesRoutes          = enemiesRoutes;
+            _gameStateController    = gameStateController;
 
-            _enemiesRoutes  = enemiesRoutes;
+            EnemySpawners           = enemySpawners;
+            
+            Cooldown                = cooldown;
+            CurrentCooldown         = 0;
 
+            
         }
 
         #endregion
@@ -70,7 +72,7 @@ namespace Controllers.Services
 
                     ReturnToPool(enemy);
 
-                    return;
+                    continue;
 
                 };
 
@@ -90,7 +92,7 @@ namespace Controllers.Services
 
             var randomizer = new System.Random();
 
-            int spawnerIndex = randomizer.Next(EnemySpawners.Count - 1);
+            int spawnerIndex = randomizer.Next(EnemySpawners.Count);
 
             _currentSpawner = EnemySpawners[spawnerIndex];
 
@@ -147,10 +149,15 @@ namespace Controllers.Services
 
         public void OnUpdate(float deltaTime)
         {
-            
-            CurrentCooldown = Mathf.Clamp(CurrentCooldown - deltaTime, 0, Cooldown);
 
-            if(CurrentCooldown == 0)
+            if (!_gameStateController.GameIsStopped)
+            {
+
+                CurrentCooldown = Mathf.Clamp(CurrentCooldown - deltaTime, 0, Cooldown);
+
+            };
+
+            if (CurrentCooldown == 0)
             {
 
                 SetRandomSpawner();
@@ -162,6 +169,29 @@ namespace Controllers.Services
             };
 
             CheckoutSpawnableObjects(deltaTime);
+
+        }
+
+        public void StartGame()
+        {
+
+            for (int i = _enemies.Count - 1; i >= 0; i--)
+            {
+
+                var enemy = _enemies[i];
+
+                enemy.Gameobject.SetActive(false);
+
+                ReturnToPool(enemy);
+
+            };
+
+        }
+
+        public void StopGame()
+        {
+
+            CurrentCooldown = Cooldown;
 
         }
 

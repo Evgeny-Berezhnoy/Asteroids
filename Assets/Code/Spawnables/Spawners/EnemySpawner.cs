@@ -21,18 +21,20 @@ namespace Spawnables.Spawners
         private PoolService _poolService;
         private HealthServiceController _healthServiceController;
         private ProjectileServiceController _projectileServiceController;
+        private PointsController _pointsController;
 
         #endregion
 
         #region Constructors
 
-        public EnemySpawner(EnemyConfiguration prefab, ISpawner projectileSpawner, PoolService poolService, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController) : base(prefab, prefab.GameobjectName)
+        public EnemySpawner(EnemyConfiguration prefab, ISpawner projectileSpawner, PoolService poolService, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController, PointsController pointsController) : base(prefab, prefab.GameobjectName)
         {
 
             _projectileSpawner              = projectileSpawner;
             _poolService                    = poolService;
             _healthServiceController        = healthServiceController;
-            _projectileServiceController    = projectileServiceController;   
+            _projectileServiceController    = projectileServiceController;
+            _pointsController               = pointsController;
 
         }
 
@@ -59,7 +61,7 @@ namespace Spawnables.Spawners
 
             EnemyShooterController enemyShooterController = new EnemyShooterController(_poolService, shooterModel, _projectileServiceController); 
 
-            EnemyController enemyController = new EnemyController(gameObject, _prefab, enemyShooterController);
+            EnemyController enemyController = new EnemyController(gameObject, _prefab, enemyShooterController, _pointsController);
 
             _healthServiceController.Insert(gameObject, enemyController.HealthController);
 

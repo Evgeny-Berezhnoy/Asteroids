@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Interfaces;
-using Views.Components;
 
 namespace Models.ScriptableObjects
 {
@@ -18,8 +17,9 @@ namespace Models.ScriptableObjects
         public string ShooterConfigurationDirectory;
         public string Name;
         public int HP;
+        public int PointsForKill;
         public float Speed;
-
+        
         #endregion
 
         #region Properties
