@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c505549ae3ba84391886018fe783b8, type: 3}
   m_Name: Shooter Storage 1
   m_EditorClassIdentifier: 
-  ShootersConfigurationsDirectories:
-  - Configurations/Shooters/Instances/Laser gun
-  - Configurations/Shooters/Instances/Plasma gun
+  _configurations:
+  - Configurations/Shooters/Instances/Player/Blue laser gun
+  - Configurations/Shooters/Instances/Player/Nuke launcher
+  - Configurations/Shooters/Instances/Player/Plasma gun

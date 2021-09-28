@@ -2,7 +2,7 @@
 using Controllers;
 using Controllers.UI;
 using Interfaces;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 
 namespace Initializers
 {
@@ -11,10 +11,10 @@ namespace Initializers
 
         #region Constructors
 
-        public UserInterfaceInitializer(GameConfiguration gameConfiguration, ControllersList controllersList, RectTransform userInterfaceTransform, GameEventsHandler gameEventsHandler, PointsController pointsController)
+        public UserInterfaceInitializer(GameConfigurationModel gameConfiguration, ControllersList controllersList, RectTransform userInterfaceTransform, GameEventsHandler gameEventsHandler, PointsController pointsController)
         {
 
-            var userInterfaceController = new UserInterfaceController(gameConfiguration.UserInterfaceConfiguration, userInterfaceTransform, gameEventsHandler, pointsController);
+            var userInterfaceController = new UserInterfaceController(gameConfiguration.UserInterface, userInterfaceTransform, gameEventsHandler, pointsController);
 
             controllersList.AddController(userInterfaceController);
 

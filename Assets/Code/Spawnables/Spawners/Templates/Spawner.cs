@@ -25,8 +25,8 @@ namespace Spawnables.Spawners.Templates
         public Spawner(IPrefabData prefab, string prefabName)
         {
 
-            _prefabName = prefabName;
-            _prefab     = prefab as T;
+            _prefabName             = prefabName;
+            _prefab                 = prefab as T;
             
         }
 

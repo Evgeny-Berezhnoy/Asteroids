@@ -6,6 +6,7 @@ using Controllers.Services;
 using Controllers.Shooters;
 using Interfaces;
 using Models.Constructables;
+using Models.Constructables.ConfigurationModels;
 using Models.Managers;
 using Models.ScriptableObjects;
 using Spawnables.Services;
@@ -18,7 +19,7 @@ namespace Initializers
 
         #region Constructors
 
-        public PlayerShooterInitializer(ShootersStorage shootersStorage,
+        public PlayerShooterInitializer(List<ShooterConfigurationModel> shooters,
                                         Transform playerTransform,
                                         ControllersList controllersList,
                                         PoolService poolService,
@@ -26,27 +27,28 @@ namespace Initializers
                                         HealthServiceController healthServiceController,
                                         ProjectileServiceController projectileServiceController,
                                         GameEventsHandler gameEventsHandler,
-                                        GameStateController gameStateController)
+                                        GameStateController gameStateController,
+                                        AudioServiceController audioServiceController)
         {
 
             var shooterModels = new LinkedList<ShooterModel>();
 
-            for(int i = 0; i < shootersStorage.Shooters.Count; i++)
+            for(int i = 0; i < shooters.Count; i++)
             {
 
-                ShooterConfiguration shooterConfiguration = shootersStorage.Shooters[i];
+                ShooterConfigurationModel shooterConfiguration = shooters[i];
 
                 string poolSpaceName = PoolNames.PLAYER_POOL_PREFIX + shooterConfiguration.Projectile.GameobjectName;
 
                 var shooterModel = new ShooterModel();
 
                 shooterModel.Cooldown       = shooterConfiguration.Cooldown;   
-                shooterModel.ShootingPoints = new ShooterMapModel(playerTransform, shooterConfiguration.ShooterMap.ShootingPoints, shooterConfiguration.Name).ShootingPoints;
+                shooterModel.ShootingPoints = new ShooterMapModel(playerTransform, shooterConfiguration.ShooterMap.ShootingPoints, shooterConfiguration.GameobjectName).ShootingPoints;
 
                 if(!poolService.TryGetSpawner(poolSpaceName, out var projectileSpawner))
                 {
 
-                    projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.PLAYER_PROJECTILE, healthServiceController);
+                    projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.PLAYER_PROJECTILE, healthServiceController, audioServiceController);
                     
                     poolService.CreatePool(projectileSpawner);
                     

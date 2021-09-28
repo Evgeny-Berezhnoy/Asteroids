@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8ecb855992da24479a820e3814af23a, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Ships/Short Lazer Ship
-  Speed: 24
+  Speed: 36
   HP: 1
+  SpriteDirectory: Sprites/Ships/Short Lazer Ship

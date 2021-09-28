@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b656ea8f569d1b4f8c5e7c8c312f481, type: 3}
   m_Name: Plasma ball
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Projectiles/Plasma ball
   Name: Plasma ball
+  SpriteDirectory: Sprites/Projectiles/Plasma ball
+  IsRound: 1
+  Damage: 5
   Speed: 80
-  Damage: 20
-  LifeTime: 15
+  LifeTime: 3
+  LaunchAudioConfigurationDirectory: Configurations/Audio/Samples/Plasma ball launch
+  HitAudioConfigurationDirectory: Configurations/Audio/Samples/Plasma ball hit

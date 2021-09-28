@@ -13,12 +13,15 @@ namespace Views.Components
         #region Fields
 
         [SerializeField] private Transform _playerStartPoint;
+        [SerializeField] private Transform _poolService;
         [SerializeField] private List<Route> _enemiesRoutes;
+        
         #endregion
 
         #region Properties
 
         public Transform PlayerStartPoint => _playerStartPoint;
+        public Transform PoolService => _poolService;
         public List<Route> EnemiesRoutes => _enemiesRoutes;
 
         #endregion

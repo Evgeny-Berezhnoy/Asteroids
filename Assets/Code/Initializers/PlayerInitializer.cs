@@ -1,9 +1,8 @@
 ﻿using Controllers;
 using Controllers.Services;
 using Interfaces;
-using Models.Constructables;
 using Models.Managers;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
 
 namespace Initializers
@@ -13,20 +12,30 @@ namespace Initializers
 
         #region Constructors
 
-        public PlayerInitializer(GameConfiguration gameConfiguration,
-                                    ScreenMapModel screenMapModel,
+        public PlayerInitializer(GameConfigurationModel gameConfiguration,
+                                    ScreenMapConfigurationModel screenMapModel,
                                     ControllersList controllersList,
                                     PoolService poolService,
                                     InputUnitManager inputUnitManager,
                                     HealthServiceController healthServiceController,
                                     ProjectileServiceController projectileServiceController,
                                     GameEventsHandler gameEventsHandler,
-                                    GameStateController gameStateController)
+                                    GameStateController gameStateController,
+                                    AudioServiceController audioServiceController)
         {
 
-            var playerServiceController = new PlayerServiceController(screenMapModel.PlayerStartTransform, gameConfiguration.PlayerConfiguration, poolService, healthServiceController, gameStateController);
+            var playerServiceController = new PlayerServiceController(screenMapModel.PlayerStartTransform, gameConfiguration.Player, poolService, healthServiceController, gameStateController);
 
-            new PlayerShooterInitializer(gameConfiguration.ShootersStorage, playerServiceController.PlayerController.Gameobject.transform, controllersList, poolService, inputUnitManager, healthServiceController, projectileServiceController, gameEventsHandler, gameStateController);
+            new PlayerShooterInitializer(gameConfiguration.Shooters,
+                                            playerServiceController.PlayerController.Gameobject.transform,
+                                            controllersList,
+                                            poolService,
+                                            inputUnitManager,
+                                            healthServiceController,
+                                            projectileServiceController,
+                                            gameEventsHandler,
+                                            gameStateController,
+                                            audioServiceController);
 
             playerServiceController.OnPlayersDeath += gameEventsHandler.StopGame;
             

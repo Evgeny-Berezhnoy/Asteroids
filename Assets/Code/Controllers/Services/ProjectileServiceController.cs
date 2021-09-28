@@ -16,7 +16,7 @@ namespace Controllers.Services
         private PoolService _poolService;
         private List<ISpawnableObject> _projectiles = new List<ISpawnableObject>();
         private GameStateController _gameStateController;
-        
+
         #endregion
 
         #region Interfaces Properties
@@ -94,6 +94,8 @@ namespace Controllers.Services
                 var projectileController = projectile as ProjectileController;
 
                 projectileController.CurrentLifeTime = projectileController.LifeTime;
+
+                projectileController.LaunchAudioTrigger.Play();
 
                 _projectiles.Add(projectile);
 

@@ -25,14 +25,12 @@ namespace Spawnables.Services
 
         #region Constructors
 
-        public PoolService()
+        public PoolService(Transform rootTransform)
         {
 
             _pools = new Dictionary<string, PoolSpace>(StartCapacity);
 
-            var poolGameobject = new GameObject(GameobjectNames.POOLSERVICE);
-            
-            _rootTransform = poolGameobject.transform;
+            _rootTransform = rootTransform;
 
         }
 

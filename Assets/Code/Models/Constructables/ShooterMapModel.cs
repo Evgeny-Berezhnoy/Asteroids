@@ -2,7 +2,7 @@
 using UnityEngine;
 using Constants;
 using ExtensionCompilation;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 
 namespace Models.Constructables
 {
@@ -24,7 +24,7 @@ namespace Models.Constructables
 
         #region Constructors
 
-        public ShooterMapModel(Transform rootTransform, ShooterConfiguration shooterConfiguration) : this(rootTransform, shooterConfiguration.ShooterMap.ShootingPoints, shooterConfiguration.Name) { }
+        public ShooterMapModel(Transform rootTransform, ShooterConfigurationModel shooterConfigurationModel) : this(rootTransform, shooterConfigurationModel.ShooterMap.ShootingPoints, shooterConfigurationModel.GameobjectName) { }
 
         public ShooterMapModel(Transform rootTransform, List<Transform> shootingPoints, string gunName)
         {

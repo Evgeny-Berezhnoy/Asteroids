@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Code\Constants\AudioTypes.cs" />
     <Compile Include="Assets\Code\Constants\DebugLogMessages.cs" />
     <Compile Include="Assets\Code\Constants\Delegates.cs" />
     <Compile Include="Assets\Code\Constants\ErrorMessages.cs" />
@@ -76,8 +77,15 @@
     <Compile Include="Assets\Code\Constants\Layers.cs" />
     <Compile Include="Assets\Code\Constants\OrdersInLayers.cs" />
     <Compile Include="Assets\Code\Constants\PoolNames.cs" />
+    <Compile Include="Assets\Code\Controllers\Audio\AudioClipController.cs" />
+    <Compile Include="Assets\Code\Controllers\Audio\AudioTrigger.cs" />
+    <Compile Include="Assets\Code\Controllers\Audio\LoopAudioClipController.cs" />
+    <Compile Include="Assets\Code\Controllers\BackgroundController.cs" />
     <Compile Include="Assets\Code\Controllers\ControllersList.cs" />
     <Compile Include="Assets\Code\Controllers\Damage\SimpleDamageController.cs" />
+    <Compile Include="Assets\Code\Controllers\Damage\Templates\DamageBoxOverlapper.cs" />
+    <Compile Include="Assets\Code\Controllers\Damage\Templates\DamageCircleOverlap.cs" />
+    <Compile Include="Assets\Code\Controllers\Damage\Templates\DamageOverlapper.cs" />
     <Compile Include="Assets\Code\Controllers\EnemyController.cs" />
     <Compile Include="Assets\Code\Controllers\GameController.cs" />
     <Compile Include="Assets\Code\Controllers\GameEventsHandler.cs" />
@@ -90,13 +98,15 @@
     <Compile Include="Assets\Code\Controllers\Inputting\InputController.cs" />
     <Compile Include="Assets\Code\Controllers\Inputting\InputUnitController.cs" />
     <Compile Include="Assets\Code\Controllers\Inputting\InputWheelScrollController.cs" />
-    <Compile Include="Assets\Code\Controllers\Move\EnemyMoveController.cs" />
     <Compile Include="Assets\Code\Controllers\Move\MoveController.cs" />
+    <Compile Include="Assets\Code\Controllers\Move\NavigableMoveController.cs" />
     <Compile Include="Assets\Code\Controllers\Move\RestrictedMoveController.cs" />
     <Compile Include="Assets\Code\Controllers\NavigatorController.cs" />
     <Compile Include="Assets\Code\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Code\Controllers\PointsController.cs" />
     <Compile Include="Assets\Code\Controllers\ProjectileController.cs" />
+    <Compile Include="Assets\Code\Controllers\Services\AudioServiceController.cs" />
+    <Compile Include="Assets\Code\Controllers\Services\BackgroundServiceController.cs" />
     <Compile Include="Assets\Code\Controllers\Services\EnemyServiceController.cs" />
     <Compile Include="Assets\Code\Controllers\Services\HealthServiceController.cs" />
     <Compile Include="Assets\Code\Controllers\Services\PlayerServiceController.cs" />
@@ -112,16 +122,20 @@
     <Compile Include="Assets\Code\ExtensionCompilation\Collections.cs" />
     <Compile Include="Assets\Code\ExtensionCompilation\GameobjectsExtensions.cs" />
     <Compile Include="Assets\Code\ExtensionCompilation\TransformExtensions.cs" />
+    <Compile Include="Assets\Code\Initializers\BackgroundInitializer.cs" />
     <Compile Include="Assets\Code\Initializers\EnemyInitializer.cs" />
     <Compile Include="Assets\Code\Initializers\GameInitializer.cs" />
     <Compile Include="Assets\Code\Initializers\PlayerInitializer.cs" />
     <Compile Include="Assets\Code\Initializers\PlayerShooterInitializer.cs" />
-    <Compile Include="Assets\Code\Initializers\ScreenMapInitializer.cs" />
     <Compile Include="Assets\Code\Initializers\UserInterfaceInitializer.cs" />
     <Compile Include="Assets\Code\Interfaces\Events\IEventHandler.cs" />
     <Compile Include="Assets\Code\Interfaces\Events\IFixedUpdate.cs" />
     <Compile Include="Assets\Code\Interfaces\Events\IStart.cs" />
     <Compile Include="Assets\Code\Interfaces\Events\IUpdate.cs" />
+    <Compile Include="Assets\Code\Interfaces\IAudioClipController.cs" />
+    <Compile Include="Assets\Code\Interfaces\IAudioTrigger.cs" />
+    <Compile Include="Assets\Code\Interfaces\IConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Interfaces\IConfigurationStorage.cs" />
     <Compile Include="Assets\Code\Interfaces\IController.cs" />
     <Compile Include="Assets\Code\Interfaces\ICooldown.cs" />
     <Compile Include="Assets\Code\Interfaces\IDamageController.cs" />
@@ -133,6 +147,7 @@
     <Compile Include="Assets\Code\Interfaces\IMovable.cs" />
     <Compile Include="Assets\Code\Interfaces\INavigable.cs" />
     <Compile Include="Assets\Code\Interfaces\INavigator.cs" />
+    <Compile Include="Assets\Code\Interfaces\IOverlapper.cs" />
     <Compile Include="Assets\Code\Interfaces\IPoolReturner.cs" />
     <Compile Include="Assets\Code\Interfaces\IPoolServiceController.cs" />
     <Compile Include="Assets\Code\Interfaces\IPrefabData.cs" />
@@ -140,13 +155,26 @@
     <Compile Include="Assets\Code\Interfaces\ISpawnableObject.cs" />
     <Compile Include="Assets\Code\Interfaces\ISpawner.cs" />
     <Compile Include="Assets\Code\Interpreters\GamePoints.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\AudioConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\AudioclipConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\BackgroundConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\EnemyConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\GameConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\PlayerConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\ProjectileConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\ScreenMapConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\ShooterConfigurationModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\ConfigurationModels\UserConfigurationModel.cs" />
     <Compile Include="Assets\Code\Models\Constructables\RouteContainer.cs" />
     <Compile Include="Assets\Code\Models\Constructables\RouteModel.cs" />
-    <Compile Include="Assets\Code\Models\Constructables\ScreenMapModel.cs" />
     <Compile Include="Assets\Code\Models\Constructables\ShooterMapModel.cs" />
     <Compile Include="Assets\Code\Models\Constructables\ShooterModel.cs" />
+    <Compile Include="Assets\Code\Models\Constructables\Templates\ConfigurationModel.cs" />
     <Compile Include="Assets\Code\Models\Managers\InputUnitManager.cs" />
     <Compile Include="Assets\Code\Models\ModelsInitializer.cs" />
+    <Compile Include="Assets\Code\Models\ScriptableObjects\AudioStorage.cs" />
+    <Compile Include="Assets\Code\Models\ScriptableObjects\AudioclipConfiguration.cs" />
+    <Compile Include="Assets\Code\Models\ScriptableObjects\BackgroundConfiguration.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\EnemiesStorage.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\EnemyConfiguration.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\GameConfiguration.cs" />
@@ -157,6 +185,7 @@
     <Compile Include="Assets\Code\Models\ScriptableObjects\UserInterfaceConfiguration.cs" />
     <Compile Include="Assets\Code\Spawnables\Pools\PoolSpace.cs" />
     <Compile Include="Assets\Code\Spawnables\Services\PoolService.cs" />
+    <Compile Include="Assets\Code\Spawnables\Spawners\BackgroundSpawner.cs" />
     <Compile Include="Assets\Code\Spawnables\Spawners\EnemySpawner.cs" />
     <Compile Include="Assets\Code\Spawnables\Spawners\PlayerSpawner.cs" />
     <Compile Include="Assets\Code\Spawnables\Spawners\ProjectileSpawner.cs" />

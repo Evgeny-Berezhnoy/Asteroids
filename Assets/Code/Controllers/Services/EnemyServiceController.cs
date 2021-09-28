@@ -50,9 +50,8 @@ namespace Controllers.Services
             EnemySpawners           = enemySpawners;
             
             Cooldown                = cooldown;
-            CurrentCooldown         = 0;
+            CurrentCooldown         = cooldown;
 
-            
         }
 
         #endregion

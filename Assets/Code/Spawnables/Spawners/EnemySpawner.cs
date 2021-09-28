@@ -6,13 +6,13 @@ using Controllers.Shooters;
 using ExtensionCompilation;
 using Interfaces;
 using Models.Constructables;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
 using Spawnables.Spawners.Templates;
 
 namespace Spawnables.Spawners
 {
-    public class EnemySpawner : Spawner<EnemyConfiguration>
+    public class EnemySpawner : Spawner<EnemyConfigurationModel>
     {
 
         #region Fields
@@ -27,7 +27,7 @@ namespace Spawnables.Spawners
 
         #region Constructors
 
-        public EnemySpawner(EnemyConfiguration prefab, ISpawner projectileSpawner, PoolService poolService, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController, PointsController pointsController) : base(prefab, prefab.GameobjectName)
+        public EnemySpawner(IPrefabData prefab, ISpawner projectileSpawner, PoolService poolService, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController, PointsController pointsController) : base(prefab, prefab.GameobjectName)
         {
 
             _projectileSpawner              = projectileSpawner;
@@ -55,9 +55,9 @@ namespace Spawnables.Spawners
 
             var shooterModel = new ShooterModel();
 
-            shooterModel.Cooldown       = _prefab.ShooterConfiguration.Cooldown;
+            shooterModel.Cooldown       = _prefab.Shooter.Cooldown;
             shooterModel.Spawner        = _projectileSpawner;
-            shooterModel.ShootingPoints = new ShooterMapModel(gameObject.transform, _prefab.ShooterConfiguration).ShootingPoints;
+            shooterModel.ShootingPoints = new ShooterMapModel(gameObject.transform, _prefab.Shooter).ShootingPoints;
 
             EnemyShooterController enemyShooterController = new EnemyShooterController(_poolService, shooterModel, _projectileServiceController); 
 

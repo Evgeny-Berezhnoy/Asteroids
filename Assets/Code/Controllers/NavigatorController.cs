@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Constants;
 using ExtensionCompilation;
@@ -8,6 +9,12 @@ namespace Controllers
 {
     public class NavigatorController : IController, INavigator
     {
+
+        #region Events
+
+        public event Action OnReachingPoint;
+
+        #endregion
 
         #region Properties
 
@@ -38,19 +45,48 @@ namespace Controllers
 
         #endregion
 
+        #region Destructors
+
+        ~NavigatorController()
+        {
+
+            var subscriptions = OnReachingPoint.GetInvocationList();
+
+            for(int i = subscriptions.Length; i >= 0; i--)
+            {
+
+                OnReachingPoint -= subscriptions[i] as Action;
+
+            };
+
+        }
+
+        #endregion
+
         #region Methods
 
-        public void SetRoute(LinkedList<Transform> destinations)
+        public void SetRoute(LinkedList<Transform> destinations, LinkedListNode<Transform> currentDestination = null)
         {
 
             Arrived = false;
 
             Destinations = destinations;
 
-            CurrentDestination = destinations.First;
+            if (currentDestination == null)
+            {
+
+                CurrentDestination = destinations.First;
+
+            }
+            else
+            {
+
+                CurrentDestination = currentDestination;
+
+            };
 
             TravelerTransform.SetPositionAndRotation(CurrentDestination.Value);
-            
+
         }
 
         #endregion
@@ -65,6 +101,13 @@ namespace Controllers
             TravelerTransform.position += direction;
 
             if ((CurrentDestination.Value.position - TravelerTransform.position).magnitude > FudgeFactors.DISTANCE_BETWEEN_POSITIONS) return;
+
+            if (!CurrentDestination.Equals(Destinations.First))
+            {
+
+                OnReachingPoint?.Invoke();
+
+            };
 
             CurrentDestination = CurrentDestination.Next;
 

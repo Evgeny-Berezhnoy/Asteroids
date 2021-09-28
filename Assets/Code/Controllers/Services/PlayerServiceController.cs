@@ -4,7 +4,7 @@ using Constants;
 using ExtensionCompilation;
 using Interfaces;
 using Interfaces.Events;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
 using Spawnables.Spawners;
 
@@ -43,7 +43,7 @@ namespace Controllers.Services
 
         #region Constructors
 
-        public PlayerServiceController(Transform playerTransform, PlayerConfiguration playerConfiguration, PoolService poolService, HealthServiceController healthServiceController, GameStateController gameStateController)
+        public PlayerServiceController(Transform playerTransform, PlayerConfigurationModel playerConfiguration, PoolService poolService, HealthServiceController healthServiceController, GameStateController gameStateController)
         {
 
             _poolService            = poolService;

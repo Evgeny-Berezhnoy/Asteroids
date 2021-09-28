@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Interfaces;
 using Interfaces.Events;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 
 namespace Controllers.UI
 {
@@ -22,10 +22,10 @@ namespace Controllers.UI
 
         #region Constructors
 
-        public UserInterfaceController(UserInterfaceConfiguration userInterfaceConfiguration, RectTransform userInterfaceTransform, GameEventsHandler gameEventsHandler, PointsController pointsController)
+        public UserInterfaceController(UserInterfaceConfigurationModel userInterfaceConfiguration, RectTransform userInterfaceTransform, GameEventsHandler gameEventsHandler, PointsController pointsController)
         {
 
-            _playScreenController       = new PlayScreenController(userInterfaceConfiguration.Points, userInterfaceTransform, pointsController);
+            _playScreenController       = new PlayScreenController(userInterfaceConfiguration.PlayScreen, userInterfaceTransform, pointsController);
             _gameOverScreenController   = new GameOverScreenController(userInterfaceConfiguration.GameOverScreen, userInterfaceTransform);
 
             _openedWindows              = new Stack<BaseUIController>();

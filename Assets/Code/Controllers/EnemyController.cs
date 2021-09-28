@@ -5,7 +5,7 @@ using Controllers.Move;
 using Controllers.Shooters;
 using Interfaces;
 using Interfaces.Events;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 
 namespace Controllers
 {
@@ -36,16 +36,16 @@ namespace Controllers
 
         #region Constructors
 
-        public EnemyController(GameObject gameObject, EnemyConfiguration enemyConfiguration, EnemyShooterController enemyShooterController, PointsController pointsController)
+        public EnemyController(GameObject gameObject, EnemyConfigurationModel enemyConfigurationModel, EnemyShooterController enemyShooterController, PointsController pointsController)
         {
 
             _gameObject         = gameObject;
             _shooterController  = enemyShooterController;
-            _pointsForKill      = enemyConfiguration.PointsForKill;
+            _pointsForKill      = enemyConfigurationModel.PointsForKill;
             _pointsController   = pointsController;
             
-            MoveController      = new EnemyMoveController(_gameObject.transform, enemyConfiguration.Speed, new NavigatorController(_gameObject.transform));
-            HealthController    = new EnemyHealthController(enemyConfiguration.HP);
+            MoveController      = new NavigableMoveController(_gameObject.transform, enemyConfigurationModel.Speed, new NavigatorController(_gameObject.transform));
+            HealthController    = new EnemyHealthController(enemyConfigurationModel.HP);
 
         }
 

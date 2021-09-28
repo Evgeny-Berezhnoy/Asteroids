@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce983e546f1db854eb0781cb370c6dbe, type: 3}
   m_Name: Kite ship
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Ships/Kite
-  ShooterConfigurationDirectory: Configurations/Shooters/Instances/Laser gun
   Name: Kite ship
-  HP: 5
+  SpriteDirectory: Sprites/Ships/Kite
+  ShooterConfigurationDirectory: Configurations/Shooters/Instances/Enemy/Laser gun
+  HP: 2
   PointsForKill: 200
   Speed: 15
