@@ -17,7 +17,7 @@ namespace Interfaces
 
         #region Methods
 
-        void SetRoute(LinkedList<Transform> destinations);
+        void SetRoute(LinkedList<Transform> destinations, LinkedListNode<Transform> currentDestination = null);
         void Direct(Vector3 direction);
 
         #endregion

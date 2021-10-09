@@ -8,16 +8,17 @@ using Spawnables.Services;
 
 namespace Controllers.Shooters
 {
-    public class PlayerShooterController : IController, IUpdate, IPoolServiceController , ICooldown, IShoot
+    public class PlayerShooterController : IController, IUpdate, IPoolServiceController, IGameStatementListener, ICooldown, IShoot
     {
 
         #region Fields
 
         private PoolService _poolService;
+        private ProjectileServiceController _projectileServiceController;
+        private GameStateController _gameStateController;
         private ISpawner _spawner;
         private List<Transform> _shootingPoints;
-        private ProjectileServiceController _projectileServiceController;
-
+        
         #endregion
 
         #region Interfaces Properties
@@ -25,17 +26,18 @@ namespace Controllers.Shooters
         public PoolService PoolService => _poolService;
         public float Cooldown { get; set; }
         public float CurrentCooldown { get; set; }
-
+        
         #endregion
 
         #region Constructors
 
-        public PlayerShooterController(PoolService poolService, ProjectileServiceController projectileServiceController)
+        public PlayerShooterController(PoolService poolService, ProjectileServiceController projectileServiceController, GameStateController gameStateController)
         {
 
             _poolService                    = poolService;
             _projectileServiceController    = projectileServiceController;
-            
+            _gameStateController            = gameStateController;
+
         }
 
         #endregion
@@ -60,6 +62,8 @@ namespace Controllers.Shooters
         public void OnUpdate(float deltaTime)
         {
 
+            if (_gameStateController.GameIsStopped) return;
+
             CurrentCooldown = Mathf.Clamp(CurrentCooldown - deltaTime, 0, Cooldown);
 
         }
@@ -72,6 +76,20 @@ namespace Controllers.Shooters
             _projectileServiceController.CreateFromPool(_spawner, _shootingPoints);
 
             CurrentCooldown = Cooldown;
+
+        }
+
+        public void StartGame()
+        {
+
+            CurrentCooldown = 0;
+            
+        }
+
+        public void StopGame()
+        {
+
+            // DO NOTHING. VIOLENCE OF INTERFACE SEGREGATION PRINCIPLE
 
         }
 

@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using Constants;
+using Controllers.Audio;
 using Controllers.Services;
 using Interfaces;
 using Interfaces.Events;
@@ -14,13 +15,15 @@ namespace Controllers.Damage
         private GameObject _gameObject;
         private BoxCollider2D _gameObjectCollider;
         private int _damage;
-        private LayerMask _damageLayerMask;
         private HealthServiceController _healthServiceController;
+        private AudioTrigger _damageAudioTrigger;
+        private IOverlapper _damageOverlapper;
 
         #endregion
 
         #region Properties
 
+        public AudioTrigger DamageAudioTrigger => _damageAudioTrigger;
         public GameObject GameObject => _gameObject;
         public int Damage => _damage;
 
@@ -28,14 +31,14 @@ namespace Controllers.Damage
 
         #region Constructors
 
-        public SimpleDamageController(GameObject gameObject, int damage, LayerMask damageLayerMask, HealthServiceController healthServiceController)
+        public SimpleDamageController(GameObject gameObject, int damage, string damageSoundConfiguration, HealthServiceController healthServiceController, IOverlapper damageOverlapper)
         {
 
             _gameObject                 = gameObject;
-            _gameObjectCollider         = gameObject.GetComponent<BoxCollider2D>();
+            _damageOverlapper           = damageOverlapper;
             _damage                     = damage;
-            _damageLayerMask            = damageLayerMask;
             _healthServiceController    = healthServiceController;
+            _damageAudioTrigger         = new AudioTrigger(damageSoundConfiguration, AudioTypes.SOUND);
 
         }
 
@@ -48,17 +51,16 @@ namespace Controllers.Damage
 
             if (!_gameObject.activeSelf) return;
 
-            var enemies =
-                Physics2D
-                    .OverlapBoxAll(_gameObject.transform.position, _gameObjectCollider.size, _gameObject.transform.rotation.z, _damageLayerMask)
-                    .ToList()
-                    .Select(x => x.gameObject)
-                    .ToList();
+            if (_gameObjectCollider is BoxCollider2D gameobject) ;
+
+            var enemies = _damageOverlapper.Overlap();
 
             if (enemies.Count > 0)
             {
 
                 _healthServiceController.Damage(enemies, _damage);
+
+                _damageAudioTrigger.Play();
 
                 _gameObject.SetActive(false);
 

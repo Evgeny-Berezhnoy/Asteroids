@@ -11,11 +11,9 @@ namespace Controllers
 
         private ControllersList _controllersList;
 
-        #endregion
-
-        #region Properties
-
-        [SerializeField] public GameConfiguration Configuration;
+        [SerializeField] private string _configuration;
+        [SerializeField] private RectTransform _userInterfaceTransform;
+        [SerializeField] private Transform _audio;
 
         #endregion
 
@@ -26,7 +24,7 @@ namespace Controllers
 
             _controllersList = new ControllersList();
 
-            new GameInitializer(Configuration, _controllersList, transform);
+            new GameInitializer(_configuration, _controllersList, transform, _userInterfaceTransform, _audio);
 
         }
 

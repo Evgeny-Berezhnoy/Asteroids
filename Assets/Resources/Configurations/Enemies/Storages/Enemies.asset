@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fead9f7f6522346a3c84fba21a5c5b, type: 3}
   m_Name: Enemies
   m_EditorClassIdentifier: 
-  SpawnCooldown: 8
-  EnemyConfigurationsDirectories:
+  SpawnCooldown: 3
+  EnemyConfigurations:
   - Configurations/Enemies/Instances/Boomerang wing ship
+  - Configurations/Enemies/Instances/Kite ship
+  - Configurations/Enemies/Instances/Red assaulter ship

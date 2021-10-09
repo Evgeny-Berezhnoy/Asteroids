@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Controllers.Health;
+using Controllers.Move;
 using Interfaces;
 
 namespace Controllers
@@ -17,7 +18,7 @@ namespace Controllers
 
         public GameObject Gameobject => _gameObject;
         public HealthController HealthController { get; set; }
-        public MoveController MoveController { get; set; }
+        public IMovable MoveController { get; set; }
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace Controllers
             _gameObject         = gameObject;
 
             HealthController    = new PlayerHealthController(health);
-            MoveController      = new MoveController(_gameObject.transform, speed);
+            MoveController      = new RestrictedMoveController(_gameObject.transform, speed);
 
         }
 

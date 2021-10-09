@@ -1,6 +1,6 @@
-﻿using System;
-using UnityEngine;
-using Controllers.Services;
+﻿using UnityEngine;
+using Constants;
+using Controllers.Audio;
 using Interfaces;
 using Interfaces.Events;
 
@@ -20,27 +20,35 @@ namespace Controllers
         private GameObject _gameObject;
         private IMovable _moveController;
         private IDamageController _damageController;
-        
+        private AudioTrigger _launchAudioTrigger;
+
+        #endregion
+
+        #region Properties
+
+        public AudioTrigger LaunchAudioTrigger => _launchAudioTrigger;
+
         #endregion
 
         #region Interfaces properties
 
-        public GameObject Gameobject { get => _gameObject; }
+        public GameObject Gameobject => _gameObject;
         public float LifeTime { get; set; }
         public float CurrentLifeTime { get; set; }
-        public bool IsAlive { get => CurrentLifeTime > 0; }
+        public bool IsAlive => CurrentLifeTime > 0;
 
         #endregion
 
         #region Constructors
 
-        public ProjectileController(GameObject gameObject, IMovable moveController, IDamageController damageController, float lifeTime = 0)
+        public ProjectileController(GameObject gameObject, IMovable moveController, IDamageController damageController, string LaunchAudioConfigurationDirectory, float lifeTime = 0)
         {
 
             _gameObject         = gameObject;
             _moveController     = moveController;
             _damageController   = damageController;
-            
+            _launchAudioTrigger = new AudioTrigger(LaunchAudioConfigurationDirectory, AudioTypes.SOUND);
+
             LifeTime        = lifeTime;
             CurrentLifeTime = lifeTime;
             

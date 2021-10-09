@@ -4,7 +4,8 @@
     public static class InputButtons
     {
 
-        public static readonly string FIRE = "Fire1";
+        public static readonly string RESTART   = "Restart";
+        public static readonly string FIRE      = "Fire1";
 
     }
 

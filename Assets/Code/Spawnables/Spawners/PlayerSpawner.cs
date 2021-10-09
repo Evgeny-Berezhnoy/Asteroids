@@ -4,12 +4,12 @@ using Controllers;
 using Controllers.Services;
 using ExtensionCompilation;
 using Interfaces;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Spawners.Templates;
 
 namespace Spawnables.Spawners
 {
-    public class PlayerSpawner : Spawner<PlayerConfiguration>
+    public class PlayerSpawner : Spawner<PlayerConfigurationModel>
     {
 
         #region Fields

@@ -9,6 +9,16 @@ namespace Models
 
         #region Methods
 
+        public static T LoadObject<T>(string objectDirectory)
+            where T : Object
+        {
+
+            T objectInstance = null;
+
+            return GetObject(ref objectInstance, objectDirectory);
+
+        }
+
         public static T GetObject<T>(ref T objectInstance, string objectDirectory)
             where T : Object
         {

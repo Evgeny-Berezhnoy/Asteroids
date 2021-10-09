@@ -3,8 +3,8 @@ using Constants;
 using Controllers;
 using Controllers.Services;
 using Interfaces;
-using Models.ScriptableObjects;
 using Models.Constructables;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
 using Spawnables.Spawners;
 
@@ -16,31 +16,39 @@ namespace Initializers
 
         #region Constructors
 
-        public EnemyInitializer(GameConfiguration gameConfiguration, ControllersList controllersList, PoolService poolService, HealthServiceController healthServiceController, List<RouteModel> enemiesRoutes, ProjectileServiceController projectileServiceController)
+        public EnemyInitializer(GameConfigurationModel gameConfiguration,
+                                ControllersList controllersList,
+                                PoolService poolService,
+                                HealthServiceController healthServiceController,
+                                List<RouteModel> enemiesRoutes,
+                                ProjectileServiceController projectileServiceController,
+                                PointsController pointsController,
+                                GameEventsHandler gameEventsHandler,
+                                GameStateController gameStateController,
+                                AudioServiceController audioServiceController)
         {
 
-            List<EnemyConfiguration> enemies    = gameConfiguration.EnemiesStorage.Enemies;
-            var enemiesSpawners                 = new List<EnemySpawner>();
+            var enemiesSpawners = new List<EnemySpawner>();
             
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < gameConfiguration.Enemies.Count; i++)
             {
 
-                EnemyConfiguration enemyConfiguration = enemies[i];
+                EnemyConfigurationModel enemyConfiguration = gameConfiguration.Enemies[i];
 
-                ShooterConfiguration shooterConfiguration = enemyConfiguration.ShooterConfiguration;
+                ShooterConfigurationModel shooterConfiguration = enemyConfiguration.Shooter;
 
                 string poolSpaceName = PoolNames.ENEMY_POOL_PREFIX + shooterConfiguration.Projectile.GameobjectName;
 
                 if (!poolService.TryGetSpawner(poolSpaceName, out var projectileSpawner))
                 {
 
-                    projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.ENEMY_PROJECTILE, healthServiceController);
+                    projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.ENEMY_PROJECTILE, healthServiceController, audioServiceController);
 
                     poolService.CreatePool(projectileSpawner);
                     
                 };
 
-                var enemySpawner = new EnemySpawner(enemyConfiguration, projectileSpawner, poolService, healthServiceController, projectileServiceController);
+                var enemySpawner = new EnemySpawner(enemyConfiguration, projectileSpawner, poolService, healthServiceController, projectileServiceController, pointsController);
 
                 poolService.CreatePool(enemySpawner);
 
@@ -48,7 +56,10 @@ namespace Initializers
 
             };
 
-            var enemyServiceController  = new EnemyServiceController(enemiesSpawners, enemiesRoutes, gameConfiguration.EnemiesStorage.SpawnCooldown, poolService);
+            var enemyServiceController  = new EnemyServiceController(enemiesSpawners, enemiesRoutes, gameConfiguration.EnemiesSpawnCooldown, poolService, gameStateController);
+
+            gameEventsHandler.AddRestartHandler(enemyServiceController.StartGame);
+            gameEventsHandler.AddGameOverHandler(enemyServiceController.StopGame);
 
             controllersList.AddController(enemyServiceController);
 

@@ -33,7 +33,7 @@ namespace ExtensionCompilation
 
             SpriteRenderer spriteRenderer = gameObject.GetComponentAbsent<SpriteRenderer>();
 
-            spriteRenderer.sprite = sprite;
+            spriteRenderer.sprite       = sprite;
             spriteRenderer.sortingOrder = orderInLayer;
             
             return gameObject;

@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Controllers;
+﻿using Controllers;
 using Controllers.Services;
-using Controllers.Shooters;
-using ExtensionCompilation;
 using Interfaces;
-using Models.ScriptableObjects;
-using Models.Constructables;
+using Models.Managers;
+using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
-using Spawnables.Spawners;
 
 namespace Initializers
 {
@@ -17,34 +12,42 @@ namespace Initializers
 
         #region Constructors
 
-        public PlayerInitializer(GameConfiguration gameConfiguration, ScreenMapModel screenMapModel, ControllersList controllersList, PoolService poolService, InputController inputController, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController)
+        public PlayerInitializer(GameConfigurationModel gameConfiguration,
+                                    ScreenMapConfigurationModel screenMapModel,
+                                    ControllersList controllersList,
+                                    PoolService poolService,
+                                    InputUnitManager inputUnitManager,
+                                    HealthServiceController healthServiceController,
+                                    ProjectileServiceController projectileServiceController,
+                                    GameEventsHandler gameEventsHandler,
+                                    GameStateController gameStateController,
+                                    AudioServiceController audioServiceController)
         {
 
-            var playerController = CreatePlayerController(screenMapModel.PlayerStartTransform, gameConfiguration.PlayerConfiguration, inputController, healthServiceController);
+            var playerServiceController = new PlayerServiceController(screenMapModel.PlayerStartTransform, gameConfiguration.Player, poolService, healthServiceController, gameStateController);
 
-            new PlayerShooterInitializer(gameConfiguration.ShootersStorage, playerController.Gameobject.transform, controllersList, poolService, inputController, healthServiceController, projectileServiceController);
+            new PlayerShooterInitializer(gameConfiguration.Shooters,
+                                            playerServiceController.PlayerController.Gameobject.transform,
+                                            controllersList,
+                                            poolService,
+                                            inputUnitManager,
+                                            healthServiceController,
+                                            projectileServiceController,
+                                            gameEventsHandler,
+                                            gameStateController,
+                                            audioServiceController);
+
+            playerServiceController.OnPlayersDeath += gameEventsHandler.StopGame;
+            
+            inputUnitManager.GameAxis.AddHandler(playerServiceController.PlayerController.MoveController.Move);
+
+            gameEventsHandler.AddRestartHandler(playerServiceController.StartGame);
+            gameEventsHandler.AddGameOverHandler(playerServiceController.StopGame);
+
+            controllersList.AddController(playerServiceController);
 
         }
 
-        #endregion
-
-        #region Methods
-        
-        private PlayerController CreatePlayerController(Transform playerTransform, PlayerConfiguration playerConfiguration, InputController inputController, HealthServiceController healthServiceController)
-        {
-
-            PlayerSpawner playerSpawner = new PlayerSpawner(playerConfiguration, healthServiceController);
-
-            var playerController = playerSpawner.Spawn() as PlayerController;
-
-            playerController.Gameobject.transform.SetPositionAndRotation(playerTransform);
-
-            inputController.AddAxisHandler(playerController.MoveController.Move);
-
-            return playerController;
-
-        }
-        
         #endregion
 
     }

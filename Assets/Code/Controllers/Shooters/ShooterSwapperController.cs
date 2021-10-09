@@ -14,7 +14,7 @@ namespace Controllers.Shooters
         private PlayerShooterController _playerShooterController;
         private LinkedList<ShooterModel> _shooterModels = new LinkedList<ShooterModel>();
         private LinkedListNode<ShooterModel> _currentShooter;
-
+        
         #endregion
 
         #region Constructors
@@ -22,13 +22,11 @@ namespace Controllers.Shooters
         public ShooterSwapperController(PlayerShooterController playerShooterController, LinkedList<ShooterModel> shooterModels)
         {
 
-            _playerShooterController = playerShooterController;
-
-            _shooterModels = shooterModels;
-
-            _currentShooter = _shooterModels.First;
-
-            if(_currentShooter == null)
+            _playerShooterController    = playerShooterController;
+            _shooterModels              = shooterModels;
+            _currentShooter             = shooterModels.First;
+            
+            if (_currentShooter == null)
             {
 
                 Debug.LogError(ErrorMessages.SHOOTER_MODELS_NOT_TRANSFERED);

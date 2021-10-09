@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b656ea8f569d1b4f8c5e7c8c312f481, type: 3}
   m_Name: Missle
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Projectiles/Missle
   Name: Missle
+  SpriteDirectory: Sprites/Projectiles/Missle
+  IsRound: 0
+  Damage: 3
   Speed: 25
-  Damage: 8
-  LifeTime: 15
+  LifeTime: 10
+  LaunchAudioConfigurationDirectory: Configurations/Audio/Samples/Rocket launch
+  HitAudioConfigurationDirectory: Configurations/Audio/Samples/Rocket hit

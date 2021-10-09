@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using Constants;
 using Controllers.Health;
+using Controllers.Move;
 using Controllers.Shooters;
 using Interfaces;
 using Interfaces.Events;
-using Models.ScriptableObjects;
+using Models.Constructables.ConfigurationModels;
 
 namespace Controllers
 {
@@ -14,6 +16,8 @@ namespace Controllers
 
         private GameObject _gameObject;
         private EnemyShooterController _shooterController;
+        private int _pointsForKill;
+        private PointsController _pointsController;
         
         #endregion
 
@@ -32,14 +36,16 @@ namespace Controllers
 
         #region Constructors
 
-        public EnemyController(GameObject gameObject, EnemyConfiguration enemyConfiguration, EnemyShooterController enemyShooterController)
+        public EnemyController(GameObject gameObject, EnemyConfigurationModel enemyConfigurationModel, EnemyShooterController enemyShooterController, PointsController pointsController)
         {
 
             _gameObject         = gameObject;
             _shooterController  = enemyShooterController;
-
-            MoveController      = new EnemyMoveController(_gameObject.transform, enemyConfiguration.Speed, new NavigatorController(_gameObject.transform));
-            HealthController    = new EnemyHealthController(enemyConfiguration.HP);
+            _pointsForKill      = enemyConfigurationModel.PointsForKill;
+            _pointsController   = pointsController;
+            
+            MoveController      = new NavigableMoveController(_gameObject.transform, enemyConfigurationModel.Speed, new NavigatorController(_gameObject.transform));
+            HealthController    = new EnemyHealthController(enemyConfigurationModel.HP);
 
         }
 
@@ -75,6 +81,10 @@ namespace Controllers
 
             if (HealthController.IsDead)
             {
+
+                Debug.Log(DebugLogMessages.EnemyDied(_gameObject));
+
+                _pointsController.AddPoints(_pointsForKill);
 
                 _gameObject.SetActive(false);
 

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce983e546f1db854eb0781cb370c6dbe, type: 3}
   m_Name: Boomerang wing ship
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Ships/Boomerang wing ship
-  ShooterConfigurationDirectory: Configurations/Shooters/Instances/Missle launcher
   Name: Boomerang wing ship
-  HP: 5
-  Speed: 2
+  SpriteDirectory: Sprites/Ships/Boomerang wing
+  ShooterConfigurationDirectory: Configurations/Shooters/Instances/Enemy/Missle launcher
+  HP: 3
+  PointsForKill: 100
+  Speed: 8

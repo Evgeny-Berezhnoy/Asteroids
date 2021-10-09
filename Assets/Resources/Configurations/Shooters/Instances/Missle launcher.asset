@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Missle launcher
   m_EditorClassIdentifier: 
   Name: Missle launcher
-  Cooldown: 6
+  Cooldown: 1.5
   ShooterMapDirectory: Prefabs/Shooter maps/Missle shooter map
   ProjectileDirectory: Configurations/Projectiles/Missle

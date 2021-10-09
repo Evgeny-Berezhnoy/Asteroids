@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b656ea8f569d1b4f8c5e7c8c312f481, type: 3}
   m_Name: Laser beam
   m_EditorClassIdentifier: 
-  SpriteDirectory: Sprites/Projectiles/Laser beam
   Name: Laser beam
-  Speed: 64
-  Damage: 2
-  LifeTime: 8
+  SpriteDirectory: Sprites/Projectiles/Laser beam
+  IsRound: 0
+  Damage: 1
+  Speed: 24
+  LifeTime: 10
+  LaunchAudioConfigurationDirectory: Configurations/Audio/Samples/Laser launch
+  HitAudioConfigurationDirectory: Configurations/Audio/Samples/Laser hit
