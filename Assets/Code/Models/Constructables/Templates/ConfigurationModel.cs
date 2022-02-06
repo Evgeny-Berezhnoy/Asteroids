@@ -4,7 +4,6 @@ namespace Models.Constructables.Templates
 {
     public abstract class ConfigurationModel : IConfigurationModel
     {
-        
         #region Properties
 
         public string ConfigurationDirectory { get; protected set; }
@@ -15,13 +14,9 @@ namespace Models.Constructables.Templates
 
         public ConfigurationModel(string configurationDirectory)
         {
-
             ConfigurationDirectory = configurationDirectory;
-
         }
 
         #endregion
-
     }
-
 }

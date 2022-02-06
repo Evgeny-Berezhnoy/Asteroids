@@ -2,11 +2,9 @@
 
 namespace Models.ScriptableObjects
 {
-
     [CreateAssetMenu(menuName = "Configurations/Game")]
     public class GameConfiguration : ScriptableObject
     {
-
         #region Fields
 
         public string ShootersStorageDirectory;
@@ -18,7 +16,5 @@ namespace Models.ScriptableObjects
         public string ScreenMapPrefabDirectory;
 
         #endregion
-
     }
-
 }

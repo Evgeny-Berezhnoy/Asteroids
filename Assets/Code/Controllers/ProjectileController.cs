@@ -43,15 +43,13 @@ namespace Controllers
 
         public ProjectileController(GameObject gameObject, IMovable moveController, IDamageController damageController, string LaunchAudioConfigurationDirectory, float lifeTime = 0)
         {
-
             _gameObject         = gameObject;
             _moveController     = moveController;
             _damageController   = damageController;
             _launchAudioTrigger = new AudioTrigger(LaunchAudioConfigurationDirectory, AudioTypes.SOUND);
 
             LifeTime        = lifeTime;
-            CurrentLifeTime = lifeTime;
-            
+            CurrentLifeTime = lifeTime;   
         }
 
         #endregion
@@ -60,20 +58,16 @@ namespace Controllers
 
         private bool CheckLifeTime(float deltaTime)
         {
-
             CurrentLifeTime -= deltaTime;
 
             if (!IsAlive)
             {
-
                 CurrentLifeTime = 0;
 
                 _gameObject.SetActive(false);
-
             };
 
             return _gameObject.activeSelf;
-
         }
 
         #endregion
@@ -82,24 +76,17 @@ namespace Controllers
 
         public void OnUpdate(float deltaTime)
         {
-
             if (!_gameObject.activeSelf) return;
-
             if (!CheckLifeTime(deltaTime)) return;
             
             _moveController.Move(Quaternion.Euler(_gameObject.transform.rotation.x, _gameObject.transform.rotation.y, _gameObject.transform.rotation.z) * _projectileDirectory, deltaTime);
             
             if (_damageController is IUpdate updateDamageController)
             {
-
                 updateDamageController.OnUpdate(deltaTime);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

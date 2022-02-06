@@ -6,10 +6,8 @@ using Models.ScriptableObjects;
 
 namespace Models.Constructables.ConfigurationModels
 {
-
     public class UserInterfaceConfigurationModel : ConfigurationModel, IPrefabData
     {
-
         #region Fields
 
         public GameObject PlayScreen;
@@ -27,16 +25,12 @@ namespace Models.Constructables.ConfigurationModels
 
         public UserInterfaceConfigurationModel(string configurationDirectory) : base(configurationDirectory)
         {
+            var userInterfaceConfiguration = ResourcesLoader.LoadObject<UserInterfaceConfiguration>(configurationDirectory);
 
-            var userInterfaceConfiguration = ModelsInitializer.LoadObject<UserInterfaceConfiguration>(configurationDirectory);
-
-            ModelsInitializer.InitializeObject(ref PlayScreen, userInterfaceConfiguration.PlayScreenDirectory);
-            ModelsInitializer.InitializeObject(ref GameOverScreen, userInterfaceConfiguration.GameOverScreenDirectory);
-
+            ResourcesLoader.InitializeObject(ref PlayScreen, userInterfaceConfiguration.PlayScreenDirectory);
+            ResourcesLoader.InitializeObject(ref GameOverScreen, userInterfaceConfiguration.GameOverScreenDirectory);
         }
 
         #endregion
-
     }
-
 }

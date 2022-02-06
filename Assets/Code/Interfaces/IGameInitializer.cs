@@ -1,10 +1,4 @@
 ﻿namespace Interfaces
 {
-    public interface IGameInitializer
-    {
-
-
-
-    }
-
+    public interface IGameInitializer {}
 }

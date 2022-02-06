@@ -8,7 +8,6 @@ namespace Models.Constructables
 {
     public class ShooterMapModel
     {
-
         #region Fields
 
         private Transform _rootTransform;
@@ -28,7 +27,6 @@ namespace Models.Constructables
 
         public ShooterMapModel(Transform rootTransform, List<Transform> shootingPoints, string gunName)
         {
-
             _rootTransform = new GameObject(gunName).transform;
             _rootTransform.SetParent(rootTransform);
             _rootTransform.SetLocalPositionAndRotation();
@@ -37,20 +35,15 @@ namespace Models.Constructables
 
             for (int i = 0; i < shootingPoints.Count; i++)
             {
-
                 Transform muzzle = new GameObject(GameobjectNames.MUZZLE).transform;
 
                 muzzle.SetParent(_rootTransform);
                 muzzle.SetLocalPositionAndRotation(shootingPoints[i]);
 
                 ShootingPoints.Add(muzzle);
-
-            }
-
+            };
         }
 
         #endregion
-
     }
-
 }

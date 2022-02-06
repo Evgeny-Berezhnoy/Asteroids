@@ -21,22 +21,18 @@ namespace Controllers.Shooters
 
         public ShooterSwapperController(PlayerShooterController playerShooterController, LinkedList<ShooterModel> shooterModels)
         {
-
             _playerShooterController    = playerShooterController;
             _shooterModels              = shooterModels;
             _currentShooter             = shooterModels.First;
             
             if (_currentShooter == null)
             {
-
                 Debug.LogError(ErrorMessages.SHOOTER_MODELS_NOT_TRANSFERED);
 
                 return;
-
             };
 
             playerShooterController.SetShooterModel(_currentShooter.Value);
-
         }
 
         #endregion
@@ -45,49 +41,35 @@ namespace Controllers.Shooters
 
         public void ChangeWeapon(Vector2 wheelShift)
         {
-
             if(_currentShooter == null)
             {
-
                 Debug.LogError(ErrorMessages.SHOOTER_MODELS_NOT_TRANSFERED);
 
                 return;
-
             }
 
             if (wheelShift.Equals(Vector2.down))
             {
-
                 _currentShooter = _currentShooter.Previous;
 
                 if(_currentShooter == null)
                 {
-
                     _currentShooter = _shooterModels.Last;
-
                 };
-
             }
             else
             {
-
                 _currentShooter = _currentShooter.Next;
 
                 if (_currentShooter == null)
                 {
-
                     _currentShooter = _shooterModels.First;
-
                 };
-
             };
 
             _playerShooterController.SetShooterModel(_currentShooter.Value);
-
         }
 
         #endregion
-
     }
-
 }

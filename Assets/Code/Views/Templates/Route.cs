@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Views.Templates
 {
-
     [Serializable]
     public class Route
     {
-
         #region Fields
 
         public List<Transform> Destinations;
@@ -19,13 +17,9 @@ namespace Views.Templates
 
         public Route()
         {
-
             Destinations = new List<Transform>();
-
         }
 
         #endregion
-
     }
-
 }

@@ -4,16 +4,13 @@ using Controllers;
 using Controllers.Inputting;
 using Controllers.Services;
 using Models.Managers;
-using Models.ScriptableObjects;
 using Models.Constructables.ConfigurationModels;
 using Spawnables.Services;
 
 namespace Initializers
 {
-
     public class GameInitializer : IGameInitializer
     {
-
         #region Constructors
 
         public GameInitializer(string gameConfigurationDirectory, ControllersList controllersList, Transform rootTransform, RectTransform userInterfaceTransform, Transform audioTransform)
@@ -56,11 +53,8 @@ namespace Initializers
             controllersList.AddController(projectileServiceController);
             controllersList.AddController(inputController);
             controllersList.AddController(audioServiceController);
-
         }
 
         #endregion
-
     }
-
 }

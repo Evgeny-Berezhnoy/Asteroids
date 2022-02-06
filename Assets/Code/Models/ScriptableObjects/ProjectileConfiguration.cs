@@ -2,11 +2,9 @@
 
 namespace Models.ScriptableObjects
 {
-
     [CreateAssetMenu(menuName = "Configurations/Projectile")]
     public class ProjectileConfiguration : ScriptableObject
     {
-
         #region Fields
 
         public string Name;
@@ -20,7 +18,5 @@ namespace Models.ScriptableObjects
         public string HitAudioConfigurationDirectory;
 
         #endregion
-
     }
-
 }

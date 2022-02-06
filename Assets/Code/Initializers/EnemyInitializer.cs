@@ -10,10 +10,8 @@ using Spawnables.Spawners;
 
 namespace Initializers
 {   
-
     public class EnemyInitializer : IGameInitializer
     {
-
         #region Constructors
 
         public EnemyInitializer(GameConfigurationModel gameConfiguration,
@@ -27,12 +25,10 @@ namespace Initializers
                                 GameStateController gameStateController,
                                 AudioServiceController audioServiceController)
         {
-
             var enemiesSpawners = new List<EnemySpawner>();
             
             for (int i = 0; i < gameConfiguration.Enemies.Count; i++)
             {
-
                 EnemyConfigurationModel enemyConfiguration = gameConfiguration.Enemies[i];
 
                 ShooterConfigurationModel shooterConfiguration = enemyConfiguration.Shooter;
@@ -41,11 +37,9 @@ namespace Initializers
 
                 if (!poolService.TryGetSpawner(poolSpaceName, out var projectileSpawner))
                 {
-
                     projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.ENEMY_PROJECTILE, healthServiceController, audioServiceController);
 
-                    poolService.CreatePool(projectileSpawner);
-                    
+                    poolService.CreatePool(projectileSpawner);   
                 };
 
                 var enemySpawner = new EnemySpawner(enemyConfiguration, projectileSpawner, poolService, healthServiceController, projectileServiceController, pointsController);
@@ -53,7 +47,6 @@ namespace Initializers
                 poolService.CreatePool(enemySpawner);
 
                 enemiesSpawners.Add(enemySpawner);
-
             };
 
             var enemyServiceController  = new EnemyServiceController(enemiesSpawners, enemiesRoutes, gameConfiguration.EnemiesSpawnCooldown, poolService, gameStateController);
@@ -62,11 +55,8 @@ namespace Initializers
             gameEventsHandler.AddGameOverHandler(enemyServiceController.StopGame);
 
             controllersList.AddController(enemyServiceController);
-
         }
 
         #endregion
-
     }
-
 }

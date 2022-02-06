@@ -4,7 +4,6 @@ namespace Interfaces
 {
     public interface IMovable
     {
-
         #region Properties
 
         Transform TravelerTransform { get; }
@@ -17,7 +16,5 @@ namespace Interfaces
         void Move(Vector3 direction, float deltaTime);
 
         #endregion
-
     }
-
 }

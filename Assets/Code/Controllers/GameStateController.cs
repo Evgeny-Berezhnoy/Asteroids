@@ -15,9 +15,7 @@ namespace Controllers
 
         public GameStateController() 
         {
-
             StartGame();
-
         }
 
         #endregion
@@ -26,20 +24,14 @@ namespace Controllers
 
         public void StartGame()
         {
-
             GameIsStopped = false;
-
         }
 
         public void StopGame()
         {
-
             GameIsStopped = true;
-
         }
 
         #endregion
-
     }
-
 }

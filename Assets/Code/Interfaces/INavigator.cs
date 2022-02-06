@@ -5,7 +5,6 @@ namespace Interfaces
 {
     public interface INavigator
     {
-
         #region Properties
 
         Transform TravelerTransform { get; }
@@ -21,7 +20,5 @@ namespace Interfaces
         void Direct(Vector3 direction);
 
         #endregion
-
     }
-
 }

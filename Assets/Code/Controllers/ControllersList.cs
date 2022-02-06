@@ -20,11 +20,9 @@ namespace Controllers
 
         public ControllersList()
         {
-
             _gameControllers = new List<IController>();
             _updateControllers = new List<IUpdate>();
             _fixedUpdateControllers = new List<IFixedUpdate>();
-
         }
 
         #endregion
@@ -33,23 +31,17 @@ namespace Controllers
 
         public void AddController(IController gameController)
         {
-
             _gameControllers.Add(gameController);
 
             if (gameController is IUpdate updateController)
             {
-
                 _updateControllers.Add(updateController);
-
             };
 
             if (gameController is IFixedUpdate fixedUpdateController)
             {
-
                 _fixedUpdateControllers.Add(fixedUpdateController);
-
             };
-            
         }
 
         #endregion
@@ -58,30 +50,20 @@ namespace Controllers
 
         public void OnUpdate(float deltaTime)
         {
-            
             for(var i = 0; i < _updateControllers.Count; i++)
             {
-
                 _updateControllers[i].OnUpdate(deltaTime);
-
             };
-
         }
 
         public void OnFixedUpdate()
         {
-
             for (var i = 0; i < _fixedUpdateControllers.Count; i++)
             {
-
                 _fixedUpdateControllers[i].OnFixedUpdate();
-
             };
-
         }
 
         #endregion
-
     }
-
 }

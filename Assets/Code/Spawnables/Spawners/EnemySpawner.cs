@@ -14,7 +14,6 @@ namespace Spawnables.Spawners
 {
     public class EnemySpawner : Spawner<EnemyConfigurationModel>
     {
-
         #region Fields
 
         private ISpawner _projectileSpawner;
@@ -29,13 +28,11 @@ namespace Spawnables.Spawners
 
         public EnemySpawner(IPrefabData prefab, ISpawner projectileSpawner, PoolService poolService, HealthServiceController healthServiceController, ProjectileServiceController projectileServiceController, PointsController pointsController) : base(prefab, prefab.GameobjectName)
         {
-
             _projectileSpawner              = projectileSpawner;
             _poolService                    = poolService;
             _healthServiceController        = healthServiceController;
             _projectileServiceController    = projectileServiceController;
             _pointsController               = pointsController;
-
         }
 
         #endregion
@@ -44,7 +41,6 @@ namespace Spawnables.Spawners
 
         public override ISpawnableObject Spawn()
         {
-
             GameObject gameObject = new GameObject(_prefabName);
 
             gameObject
@@ -66,11 +62,8 @@ namespace Spawnables.Spawners
             _healthServiceController.Insert(gameObject, enemyController.HealthController);
 
             return enemyController;
-
         }
 
         #endregion
-
     }
-
 }

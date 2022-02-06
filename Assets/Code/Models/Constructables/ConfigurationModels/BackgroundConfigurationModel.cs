@@ -8,10 +8,8 @@ using Models.ScriptableObjects;
 
 namespace Models.Constructables.ConfigurationModels
 {
-
     public class BackgroundConfigurationModel : ConfigurationModel, IPrefabData
     {
-
         #region Fields
 
         public float Speed;
@@ -31,15 +29,13 @@ namespace Models.Constructables.ConfigurationModels
 
         public BackgroundConfigurationModel(string configurationDirectory, Transform rootTransform) : base(configurationDirectory)
         {
-
-            var backgroundConfiguration = ModelsInitializer.LoadObject<BackgroundConfiguration>(configurationDirectory);
+            var backgroundConfiguration = ResourcesLoader.LoadObject<BackgroundConfiguration>(configurationDirectory);
 
             Speed = backgroundConfiguration.Speed;
 
-            ModelsInitializer.InitializeObject(ref Sprite, backgroundConfiguration.SpriteDirectory);
+            ResourcesLoader.InitializeObject(ref Sprite, backgroundConfiguration.SpriteDirectory);
 
             CreateSpawnTransforms(rootTransform);
-
         }
 
         #endregion
@@ -48,7 +44,6 @@ namespace Models.Constructables.ConfigurationModels
 
         private void CreateSpawnTransforms(Transform rootTransform)
         {
-
             var camera = Camera.main;
 
             float cameraWidth = 2 * camera.orthographicSize * camera.aspect;
@@ -67,7 +62,6 @@ namespace Models.Constructables.ConfigurationModels
 
             for(int i = -spawnPoinsAmount / 2; i <= spawnPoinsAmount / 2; i++)
             {
-                
                 var spawnPointPosition  = new Vector2(backgroundMapModelTransform.position.x, backgroundMapModelTransform.position.y + (i * Sprite.bounds.size.y * widthRatio));
 
                 var spawnPointTransform = new GameObject(GameobjectNames.BACKGROUND_SPAWN_POINT).transform;
@@ -77,13 +71,9 @@ namespace Models.Constructables.ConfigurationModels
                 spawnPointTransform.localScale *= widthRatio;
 
                 SpawnTransforms.AddFirst(spawnPointTransform);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

@@ -148,7 +148,7 @@
     <Compile Include="Assets\Code\Interfaces\INavigable.cs" />
     <Compile Include="Assets\Code\Interfaces\INavigator.cs" />
     <Compile Include="Assets\Code\Interfaces\IOverlapper.cs" />
-    <Compile Include="Assets\Code\Interfaces\IPoolReturner.cs" />
+    <Compile Include="Assets\Code\Interfaces\IPoolManagerController.cs" />
     <Compile Include="Assets\Code\Interfaces\IPoolServiceController.cs" />
     <Compile Include="Assets\Code\Interfaces\IPrefabData.cs" />
     <Compile Include="Assets\Code\Interfaces\IShoot.cs" />
@@ -171,7 +171,7 @@
     <Compile Include="Assets\Code\Models\Constructables\ShooterModel.cs" />
     <Compile Include="Assets\Code\Models\Constructables\Templates\ConfigurationModel.cs" />
     <Compile Include="Assets\Code\Models\Managers\InputUnitManager.cs" />
-    <Compile Include="Assets\Code\Models\ModelsInitializer.cs" />
+    <Compile Include="Assets\Code\Models\ResourcesLoader.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\AudioStorage.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\AudioclipConfiguration.cs" />
     <Compile Include="Assets\Code\Models\ScriptableObjects\BackgroundConfiguration.cs" />
@@ -197,6 +197,7 @@
     <Compile Include="Assets\Code\Views\Components\UI\PointsView.cs" />
     <Compile Include="Assets\Code\Views\Templates\Route.cs" />
     <Compile Include="Assets\Library\OpenQueue.cs" />
+    <None Include="Assets\Concept\Worklist.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.22f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

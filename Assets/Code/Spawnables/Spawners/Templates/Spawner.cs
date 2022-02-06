@@ -5,7 +5,6 @@ namespace Spawnables.Spawners.Templates
     public abstract class Spawner<T> : ISpawner
         where T : class, IPrefabData
     {
-
         #region Fields
 
         protected string _prefabName;
@@ -24,10 +23,8 @@ namespace Spawnables.Spawners.Templates
 
         public Spawner(IPrefabData prefab, string prefabName)
         {
-
-            _prefabName             = prefabName;
-            _prefab                 = prefab as T;
-            
+            _prefabName = prefabName;
+            _prefab     = prefab as T;   
         }
 
         #endregion
@@ -37,6 +34,5 @@ namespace Spawnables.Spawners.Templates
         public abstract ISpawnableObject Spawn();
 
         #endregion
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Constants;
 using Interfaces;
-using Models;
 using Models.Constructables.Templates;
 using Models.ScriptableObjects;
 
@@ -9,7 +8,6 @@ namespace Models.Constructables.ConfigurationModels
 {
     public class PlayerConfigurationModel : ConfigurationModel, IPrefabData
     {
-
         #region Fields
 
         public float Speed;
@@ -29,18 +27,14 @@ namespace Models.Constructables.ConfigurationModels
 
         public PlayerConfigurationModel(string configurationDirectory) : base(configurationDirectory)
         {
-
-            var playerConfiguration = ModelsInitializer.LoadObject<PlayerConfiguration>(configurationDirectory);
+            var playerConfiguration = ResourcesLoader.LoadObject<PlayerConfiguration>(configurationDirectory);
 
             Speed   = playerConfiguration.Speed;
             HP      = playerConfiguration.HP;
 
-            ModelsInitializer.InitializeObject(ref Sprite, playerConfiguration.SpriteDirectory);
-
+            ResourcesLoader.InitializeObject(ref Sprite, playerConfiguration.SpriteDirectory);
         }
 
         #endregion
-
     }
-
 }

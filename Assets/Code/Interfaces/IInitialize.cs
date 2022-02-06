@@ -2,9 +2,10 @@
 {
     public interface IInitialize
     {
+        #region Methods
 
-        void Initialize(); 
+        void Initialize();
 
+        #endregion
     }
-
 }

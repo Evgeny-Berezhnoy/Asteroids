@@ -9,11 +9,9 @@ namespace Controllers.Damage
 {
     public class SimpleDamageController : IController, IUpdate, IDamageController
     {
-
         #region Fields
 
         private GameObject _gameObject;
-        private BoxCollider2D _gameObjectCollider;
         private int _damage;
         private HealthServiceController _healthServiceController;
         private AudioTrigger _damageAudioTrigger;
@@ -33,13 +31,11 @@ namespace Controllers.Damage
 
         public SimpleDamageController(GameObject gameObject, int damage, string damageSoundConfiguration, HealthServiceController healthServiceController, IOverlapper damageOverlapper)
         {
-
             _gameObject                 = gameObject;
             _damageOverlapper           = damageOverlapper;
             _damage                     = damage;
             _healthServiceController    = healthServiceController;
             _damageAudioTrigger         = new AudioTrigger(damageSoundConfiguration, AudioTypes.SOUND);
-
         }
 
         #endregion
@@ -48,28 +44,20 @@ namespace Controllers.Damage
 
         public void OnUpdate(float deltaTime)
         {
-
             if (!_gameObject.activeSelf) return;
-
-            if (_gameObjectCollider is BoxCollider2D gameobject) ;
 
             var enemies = _damageOverlapper.Overlap();
 
             if (enemies.Count > 0)
             {
-
                 _healthServiceController.Damage(enemies, _damage);
 
                 _damageAudioTrigger.Play();
 
                 _gameObject.SetActive(false);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

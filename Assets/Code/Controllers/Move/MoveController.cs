@@ -5,7 +5,6 @@ namespace Controllers.Move
 {
     public class MoveController : IMovable
     {
-
         #region Fields
 
         private Transform _travelerTransform;
@@ -15,7 +14,6 @@ namespace Controllers.Move
         #region Properties
 
         public float Speed { get; set; }
-
         public Transform TravelerTransform => _travelerTransform;
 
         #endregion
@@ -24,11 +22,9 @@ namespace Controllers.Move
 
         public MoveController(Transform transform, float speed)
         {
-
             _travelerTransform = transform;
 
             Speed = speed;
-
         }
 
         #endregion
@@ -37,13 +33,9 @@ namespace Controllers.Move
 
         public void Move(Vector3 direction, float deltaTime)
         {
-
-            _travelerTransform.Translate(direction * (deltaTime * Speed));
-            
+            _travelerTransform.Translate(direction * (deltaTime * Speed));   
         }
 
         #endregion
-
     }
-
 }

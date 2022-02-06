@@ -10,7 +10,6 @@ namespace Spawnables.Spawners
 {
     public class BackgroundSpawner : Spawner<BackgroundConfigurationModel>
     {
-
         #region Constructors
 
         public BackgroundSpawner(IPrefabData backgroundModel) : base(backgroundModel, backgroundModel.GameobjectName) { }
@@ -21,7 +20,6 @@ namespace Spawnables.Spawners
 
         public override ISpawnableObject Spawn()
         {
-
             GameObject gameObject = new GameObject(_prefabName);
 
             gameObject.transform.localScale = _prefab.SpriteScale;
@@ -29,11 +27,8 @@ namespace Spawnables.Spawners
             gameObject.AddSpriteRendererAbsent(_prefab.Sprite, OrdersInLayers.BACKGROUND);
             
             return new BackgroundController(gameObject, _prefab);
-
         }
 
         #endregion
-
     }
-
 }

@@ -5,10 +5,8 @@ using Models.ScriptableObjects;
 
 namespace Models.Constructables.ConfigurationModels
 {
-
     public class ProjectileConfigurationModel : ConfigurationModel, IPrefabData
     {
-
         #region Fields
 
         private string _name;
@@ -35,8 +33,7 @@ namespace Models.Constructables.ConfigurationModels
 
         public ProjectileConfigurationModel(string configurationDirectory) : base(configurationDirectory)
         {
-
-            var projectileConfiguration = ModelsInitializer.LoadObject<ProjectileConfiguration>(configurationDirectory);
+            var projectileConfiguration = ResourcesLoader.LoadObject<ProjectileConfiguration>(configurationDirectory);
 
             _name       = projectileConfiguration.Name;
 
@@ -48,12 +45,9 @@ namespace Models.Constructables.ConfigurationModels
             LaunchAudioConfigurationDirectory   = projectileConfiguration.LaunchAudioConfigurationDirectory;
             HitAudioConfigurationDirectory      = projectileConfiguration.HitAudioConfigurationDirectory;
 
-            ModelsInitializer.InitializeObject(ref Sprite, projectileConfiguration.SpriteDirectory);
-
+            ResourcesLoader.InitializeObject(ref Sprite, projectileConfiguration.SpriteDirectory);
         }
 
         #endregion
-
     }
-
 }

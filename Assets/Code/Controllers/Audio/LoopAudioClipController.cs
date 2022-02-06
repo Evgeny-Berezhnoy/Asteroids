@@ -3,14 +3,11 @@ using ExtensionCompilation;
 using Interfaces;
 using Interfaces.Events;
 using Models.Constructables.ConfigurationModels;
-using Models.ScriptableObjects;
 
 namespace Controllers.Audio
 {
-
     public class LoopAudioclipController : IAudioClipController, IUpdate
     {
-
         #region Fields
 
         private AudioSource _audioSource;
@@ -20,7 +17,7 @@ namespace Controllers.Audio
 
         #endregion
 
-        #region Properties
+        #region Interfaces properties
 
         public AudioClip AudioClip => _audioSource.clip;
         public AudioSource AudioSource => _audioSource;
@@ -32,7 +29,6 @@ namespace Controllers.Audio
 
         public LoopAudioclipController(AudioclipConfigurationModel audioclipConfiguration, Transform rootTransform)
         {
-
             var gameObject              = new GameObject(audioclipConfiguration.GameobjectName);
             
             gameObject.transform.SetParent(rootTransform);
@@ -45,8 +41,7 @@ namespace Controllers.Audio
             _audioSource.spatialBlend   = 0;
             
             _loopBeginning              = audioclipConfiguration.LoopBegining;
-            _loopEnd                    = audioclipConfiguration.LoopEnd;
-            
+            _loopEnd                    = audioclipConfiguration.LoopEnd;   
         }
 
         #endregion
@@ -55,56 +50,37 @@ namespace Controllers.Audio
 
         public void Play()
         {
-
-            if (_audioSource.isPlaying)
-            {
-
-                return;
-
-            };
+            if (_audioSource.isPlaying) return;
 
             _audioSource.Play();
 
             _loopEntered = false;
-
         }
 
         public void Stop()
         {
-
             if (_audioSource.isPlaying)
             {
-
                 _audioSource.Stop();
-
             };
 
             _loopEntered = false;
-
         }
 
         public void OnUpdate(float deltaTime)
         {
-            
             if(!_loopEntered && (_audioSource.time > _loopBeginning))
             {
-
-                _loopEntered = true;
-
+                 _loopEntered = true;
             };
 
             if(_audioSource.time > _loopEnd)
             {
-
                 _audioSource.time = _loopBeginning;
                 _audioSource.PlayScheduled(_loopBeginning);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

@@ -2,11 +2,9 @@
 
 namespace Models.ScriptableObjects
 {
-
     [CreateAssetMenu(menuName = "Configurations/Audio/Clip")]
     public class AudioclipConfiguration : ScriptableObject
     {
-
         #region Fields
 
         public string Name;
@@ -16,7 +14,5 @@ namespace Models.ScriptableObjects
         public float LoopEnd;
         
         #endregion
-
     }
-
 }

@@ -29,10 +29,8 @@ namespace Controllers.Services
 
         public ProjectileServiceController(PoolService poolService, GameStateController gameStateController)
         {
-
             _poolService            = poolService;
             _gameStateController    = gameStateController;
-
         }
 
         #endregion
@@ -41,49 +39,37 @@ namespace Controllers.Services
 
         public void OnUpdate(float deltaTime)
         {
-
             for (int i = _projectiles.Count - 1; i >= 0; i--)
             {
-
                 var projectile = _projectiles[i];
 
                 if (!projectile.Gameobject.activeSelf)
                 {
-
                     ReturnToPool(projectile);
 
                     continue;
-
                 };
 
                 if (projectile is IUpdate updateController)
                 {
-
                     updateController.OnUpdate(deltaTime);
-
                 };
-
             };
-
         }
 
         public void CreateFromPool(ISpawner spawner, List<Transform> spawnPoints)
         {
-
             if (_gameStateController.GameIsStopped) return;
 
             for (int i = 0; i < spawnPoints.Count; i++)
             {
-
                 var shootTransform = spawnPoints[i];
 
                 if (!_poolService.TryInstantiate(spawner.PrefabName, out var projectile))
                 {
-
                     Debug.LogError(ErrorMessages.SpawnableObjectCreate(spawner.PrefabName));
 
                     return;
-
                 }
 
                 projectile
@@ -98,52 +84,35 @@ namespace Controllers.Services
                 projectileController.LaunchAudioTrigger.Play();
 
                 _projectiles.Add(projectile);
-
             };
-
         }
         
         public void ReturnToPool(ISpawnableObject spawnableObject)
         {
-
             if (!_poolService.TryDestroy(spawnableObject))
             {
-
                 Debug.LogError(ErrorMessages.SpawnableObjectDestroy(spawnableObject.Gameobject.name));
 
                 return;
-
             };
 
             _projectiles.Remove(spawnableObject);
-
         }
 
         public void StartGame()
         {
-            
             for (int i = _projectiles.Count - 1; i >= 0; i--)
             {
-
                 var projectile = _projectiles[i];
 
                 projectile.Gameobject.SetActive(false);
                 
                 ReturnToPool(projectile);
-
             };
-
         }
 
-        public void StopGame()
-        {
-
-            // DO NOTHING. VIOLENCE OF INTERFACE SEGREGATION PRINCIPLE
-
-        }
+        public void StopGame(){}
 
         #endregion
-
     }
-
 }

@@ -2,10 +2,8 @@
 
 namespace Interfaces
 {
-
     public interface IAudioClipController : IController
     {
-
         #region Properties
 
         AudioClip AudioClip { get; }
@@ -17,11 +15,8 @@ namespace Interfaces
         #region Methods
 
         void Play();
-
         void Stop();
 
         #endregion
-
     }
-
 }

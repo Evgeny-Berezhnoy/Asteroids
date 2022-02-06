@@ -5,7 +5,6 @@ namespace Controllers.Move
 {
     public class RestrictedMoveController : IMovable
     {
-
         #region Fields
 
         private readonly Camera _camera;
@@ -16,7 +15,6 @@ namespace Controllers.Move
         #region Properties
 
         public float Speed { get; set; }
-
         public Transform TravelerTransform => _travelerTransform;
 
         #endregion
@@ -25,13 +23,11 @@ namespace Controllers.Move
 
         public RestrictedMoveController(Transform transform, float speed)
         {
-
             _travelerTransform = transform;
 
             Speed = speed;
 
             _camera = Camera.main;
-
         }
 
         #endregion
@@ -40,35 +36,25 @@ namespace Controllers.Move
 
         public void Move(Vector3 direction, float deltaTime)
         {
-
-            float restrictionX          = _camera.orthographicSize * _camera.aspect;
-            float restrictionY          = _camera.orthographicSize;
-
-            float moveDirectionX        = _travelerTransform.position.x + direction.x * (deltaTime * Speed);
-            float moveDirectionY        = _travelerTransform.position.y + direction.y * (deltaTime * Speed);
-            
-            Vector3 travelerPosition    = _travelerTransform.position;
+            var restrictionX        = _camera.orthographicSize * _camera.aspect;
+            var restrictionY        = _camera.orthographicSize;
+            var moveDirectionX      = _travelerTransform.position.x + direction.x * (deltaTime * Speed);
+            var moveDirectionY      = _travelerTransform.position.y + direction.y * (deltaTime * Speed);
+            var travelerPosition    = _travelerTransform.position;
 
             if (Mathf.Abs(moveDirectionX) < restrictionX)
             {
-
                 travelerPosition.x = moveDirectionX;
-
             };
 
             if (Mathf.Abs(moveDirectionY) < restrictionY)
             {
-
                 travelerPosition.y = moveDirectionY;
-
             };
 
             _travelerTransform.position = travelerPosition;
-
         }
 
         #endregion
-
     }
-
 }

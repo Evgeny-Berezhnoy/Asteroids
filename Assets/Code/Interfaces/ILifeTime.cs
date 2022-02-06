@@ -1,9 +1,7 @@
 ﻿namespace Interfaces
 {
-
     public interface ILifeTime
     {
-
         #region Properties
 
         float LifeTime { get; set; }
@@ -11,7 +9,5 @@
         bool IsAlive { get; }
 
         #endregion
-
     }
-
 }

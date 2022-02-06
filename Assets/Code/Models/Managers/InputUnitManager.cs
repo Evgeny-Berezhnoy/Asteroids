@@ -4,7 +4,6 @@ namespace Models.Managers
 {
     public class InputUnitManager 
     {
-
         #region Properties
 
         public InputAxisController GameAxis { get; private set; }
@@ -23,7 +22,6 @@ namespace Models.Managers
 
         public InputUnitManager()
         {
-
             GameAxis    = new InputAxisController();
             GameShoot   = new InputActionController();
             GameWheel   = new InputWheelScrollController();
@@ -33,11 +31,8 @@ namespace Models.Managers
             IdleWheel   = new InputWheelScrollController();
             
             Restart     = new InputActionController();
-
         }
 
         #endregion
-
     }
-
 }

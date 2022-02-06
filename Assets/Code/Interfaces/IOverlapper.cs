@@ -5,13 +5,10 @@ namespace Interfaces
 {
     public interface IOverlapper
     {
-
         #region Methods
 
         List<GameObject> Overlap();
 
         #endregion
-
     }
-
 }

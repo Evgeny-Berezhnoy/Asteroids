@@ -2,11 +2,9 @@
 
 namespace Models.ScriptableObjects
 {
-
     [CreateAssetMenu(menuName = "Configurations/Player")]
     public class PlayerConfiguration : ScriptableObject
     {
-
         #region Fields
 
         public float Speed;
@@ -14,7 +12,5 @@ namespace Models.ScriptableObjects
         public string SpriteDirectory;
         
         #endregion
-
     }
-
 }

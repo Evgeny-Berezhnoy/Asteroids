@@ -6,7 +6,6 @@ namespace Models.Constructables
 {
     public class ShooterModel
     {
-
         #region Properties
 
         public ISpawner Spawner { get; set; }
@@ -14,7 +13,5 @@ namespace Models.Constructables
         public float Cooldown { get; set; }
         
         #endregion
-
     }
-
 }

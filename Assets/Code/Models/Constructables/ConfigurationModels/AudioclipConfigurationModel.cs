@@ -7,7 +7,6 @@ namespace Models.Constructables.ConfigurationModels
 {
     public class AudioclipConfigurationModel : ConfigurationModel, IPrefabData
     {
-
         #region Fields
 
         [SerializeField] private string _name;
@@ -30,8 +29,7 @@ namespace Models.Constructables.ConfigurationModels
 
         public AudioclipConfigurationModel(string configurationDirectory) : base(configurationDirectory)
         {
-            
-            var audioclipConfiguration = ModelsInitializer.LoadObject<AudioclipConfiguration>(configurationDirectory);
+            var audioclipConfiguration = ResourcesLoader.LoadObject<AudioclipConfiguration>(configurationDirectory);
 
             _name           = audioclipConfiguration.Name;
 
@@ -39,12 +37,9 @@ namespace Models.Constructables.ConfigurationModels
             LoopBegining    = audioclipConfiguration.LoopBegining;
             LoopEnd         = audioclipConfiguration.LoopEnd;
 
-            ModelsInitializer.InitializeObject(ref Audioclip, audioclipConfiguration.AudioclipDirectory);
-
+            ResourcesLoader.InitializeObject(ref Audioclip, audioclipConfiguration.AudioclipDirectory);
         }
 
         #endregion
-
     }
-
 }

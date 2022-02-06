@@ -7,18 +7,17 @@ namespace Controllers.Audio
 {
     public class AudioclipController : IAudioClipController
     {
-
         #region Fields
 
         private AudioSource _audioSource;
 
         #endregion
 
-        #region Properties
+        #region Interfaces properties
 
-        public AudioClip AudioClip => _audioSource.clip;
-        public AudioSource AudioSource => _audioSource;
-        public bool IsPlaying => _audioSource.isPlaying;
+        public AudioClip AudioClip      => _audioSource.clip;
+        public AudioSource AudioSource  => _audioSource;
+        public bool IsPlaying           => _audioSource.isPlaying;
 
         #endregion
 
@@ -26,7 +25,6 @@ namespace Controllers.Audio
 
         public AudioclipController(AudioclipConfigurationModel audioclipConfiguration, Transform rootTransform)
         {
-
             var gameObject              = new GameObject(audioclipConfiguration.GameobjectName);
             
             gameObject.transform.SetParent(rootTransform);
@@ -37,30 +35,21 @@ namespace Controllers.Audio
             _audioSource.playOnAwake    = false;
             _audioSource.loop           = false;
             _audioSource.spatialBlend   = 0;
-
-        }
-
-        public void Play()
-        {
-
-            _audioSource.Play();
-
-        }
-
-        public void Stop()
-        {
-
-            if (_audioSource.isPlaying)
-            {
-
-                _audioSource.Stop();
-
-            };
-
         }
 
         #endregion
 
-    }
+        #region Interfaces properties
 
+        public void Play() => _audioSource.Play();
+
+        public void Stop()
+        {
+            if (!_audioSource.isPlaying) return;
+                
+            _audioSource.Stop();
+        }
+
+        #endregion
+    }
 }

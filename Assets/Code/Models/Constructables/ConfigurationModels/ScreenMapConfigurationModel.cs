@@ -7,10 +7,8 @@ using Views.Components;
 
 namespace Models.Constructables.ConfigurationModels
 {
-
     public class ScreenMapConfigurationModel : ConfigurationModel
     {
-
         #region Properties
 
         public Transform ModelTransform;
@@ -25,10 +23,8 @@ namespace Models.Constructables.ConfigurationModels
 
         public ScreenMapConfigurationModel(string configurationDirectory, Transform rootTransform) : base(configurationDirectory)
         {
-
             CreateTransforms(rootTransform);
             ConstructMap(configurationDirectory);
-
         }
 
         #endregion
@@ -37,7 +33,6 @@ namespace Models.Constructables.ConfigurationModels
 
         private void CreateTransforms(Transform rootTransform)
         {
-
             ModelTransform = new GameObject(GameobjectNames.SCREEN_MAP_MODEL).transform;
             ModelTransform.SetParent(rootTransform);
             ModelTransform.SetLocalPositionAndRotation();
@@ -51,13 +46,11 @@ namespace Models.Constructables.ConfigurationModels
 
             PoolServiceTransform = new GameObject(GameobjectNames.POOL_SERVICE).transform;
             PoolServiceTransform.SetParent(ModelTransform);
-
         }
 
         private void ConstructMap(string configurationDirectory)
         {
-
-            var screenMap = ModelsInitializer.LoadObject<GameObject>(configurationDirectory).GetComponent<ScreenMap>();
+            var screenMap = ResourcesLoader.LoadObject<GameObject>(configurationDirectory).GetComponent<ScreenMap>();
 
             EnemiesRoutesContainer = new RouteContainer();
 
@@ -66,7 +59,6 @@ namespace Models.Constructables.ConfigurationModels
 
             for (int i = 0; i < screenMap.EnemiesRoutes.Count; i++)
             {
-
                 List<Transform> routeTransforms = screenMap.EnemiesRoutes[i].Destinations;
 
                 RouteModel route = new RouteModel();
@@ -78,24 +70,18 @@ namespace Models.Constructables.ConfigurationModels
 
                 for (int j = 0; j < routeTransforms.Count; j++)
                 {
-
                     Transform destination = new GameObject(GameobjectNames.ROUTE_DESTINATION).transform;
 
                     destination.SetParent(enemyRouteTransform);
                     destination.SetPositionAndRotation(routeTransforms[j]);
 
                     route.Destinations.AddLast(destination);
-
                 };
 
                 EnemiesRoutesContainer.Routes.Add(route);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

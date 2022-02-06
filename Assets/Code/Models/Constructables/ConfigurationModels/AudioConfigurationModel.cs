@@ -6,7 +6,6 @@ namespace Models.Constructables.ConfigurationModels
 {
     public class AudioConfigurationModel : ConfigurationModel
     {
-
         #region Fields
 
         public AudioclipConfigurationModel Level;
@@ -18,22 +17,16 @@ namespace Models.Constructables.ConfigurationModels
 
         public AudioConfigurationModel(string configurationDirectory) : base(configurationDirectory)
         {
-
-            var audioStorage = ModelsInitializer.LoadObject<AudioStorage>(configurationDirectory);
+            var audioStorage = ResourcesLoader.LoadObject<AudioStorage>(configurationDirectory);
 
             Level = new AudioclipConfigurationModel(audioStorage.LevelAudioclipDirectory);
 
             for(int i = 0; i < audioStorage.SoundDirectories.Count; i++)
             {
-
                 Sounds.Add(new AudioclipConfigurationModel(audioStorage.SoundDirectories[i]));
-
             };
-
         }
 
         #endregion
-
     }
-
 }

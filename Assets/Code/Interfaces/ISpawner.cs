@@ -1,9 +1,7 @@
 ﻿namespace Interfaces
 {
-
     public interface ISpawner
     {
-
         #region Properties
 
         string PrefabName { get; }
@@ -16,7 +14,5 @@
         ISpawnableObject Spawn();
 
         #endregion
-
     }
-
 }

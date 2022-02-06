@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace Models.Constructables
 {
-
     [Serializable]
     public class RouteContainer
     {
-
         #region Fields
 
         public List<RouteModel> Routes;
@@ -18,13 +16,9 @@ namespace Models.Constructables
 
         public RouteContainer()
         {
-
             Routes = new List<RouteModel>();
-
         }
 
         #endregion
-
     }
-
 }

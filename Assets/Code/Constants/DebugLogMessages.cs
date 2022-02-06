@@ -2,21 +2,12 @@
 
 namespace Constants
 {
-
     public static class DebugLogMessages
     {
+        #region Static methods
 
-        #region Methods
-
-        public static string EnemyDied(GameObject gameObject)
-        {
-
-            return $"{gameObject.name} has died.";
-
-        }
+        public static string EnemyDied(GameObject gameObject) => $"{gameObject.name} has died.";
 
         #endregion
-
     }
-
 }

@@ -10,7 +10,6 @@ namespace Controllers.Shooters
 {
     public class EnemyShooterController : IController, IUpdate, IPoolServiceController, ICooldown, IShoot
     {
-
         #region Fields
 
         private PoolService _poolService;
@@ -32,12 +31,10 @@ namespace Controllers.Shooters
 
         public EnemyShooterController(PoolService poolService, ShooterModel shooterModel, ProjectileServiceController projectileServiceController)
         {
-
             _poolService                    = poolService;
             _projectileServiceController    = projectileServiceController;
 
             SetShooterModel(shooterModel);
-
         }
 
         #endregion
@@ -46,13 +43,11 @@ namespace Controllers.Shooters
 
         private void SetShooterModel(ShooterModel shooterModel)
         {
-
             _spawner        = shooterModel.Spawner;
             _shootingPoints = shooterModel.ShootingPoints;
 
             Cooldown        = shooterModel.Cooldown;
             CurrentCooldown = 0;
-
         }
 
         #endregion
@@ -61,26 +56,20 @@ namespace Controllers.Shooters
 
         public void OnUpdate(float deltaTime)
         {
-
             CurrentCooldown = Mathf.Clamp(CurrentCooldown - deltaTime, 0, Cooldown);
 
             if (CurrentCooldown > 0) return;
 
             Shoot();
-
         }
 
         public void Shoot()
         {
-
             _projectileServiceController.CreateFromPool(_spawner, _shootingPoints);
 
             CurrentCooldown = Cooldown;
-
         }
 
         #endregion
-
     }
-
 }

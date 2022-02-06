@@ -45,7 +45,6 @@ namespace Controllers.Services
 
         public PlayerServiceController(Transform playerTransform, PlayerConfigurationModel playerConfiguration, PoolService poolService, HealthServiceController healthServiceController, GameStateController gameStateController)
         {
-
             _poolService            = poolService;
             _playerTransform        = playerTransform;
             _spawner                = new PlayerSpawner(playerConfiguration, healthServiceController);
@@ -54,7 +53,6 @@ namespace Controllers.Services
             poolService.CreatePool(_spawner);
 
             CreateFromPool();
-
         }
 
         #endregion
@@ -63,16 +61,12 @@ namespace Controllers.Services
 
         ~PlayerServiceController()
         {
-
             var onPlayersDeathInvocationList = OnPlayersDeath.GetInvocationList();
 
             for(int i = 0; i < onPlayersDeathInvocationList.Length; i++)
             {
-
                 OnPlayersDeath -= onPlayersDeathInvocationList[i] as Action;
-
             };
-
         }
 
         #endregion
@@ -81,36 +75,28 @@ namespace Controllers.Services
 
         private void CreateFromPool()
         {
-
             if (!_poolService.TryInstantiate(_spawner.PrefabName, out var spawnableObject))
             {
-
                 Debug.LogError(ErrorMessages.SpawnableObjectCreate(_spawner.PrefabName));
 
                 return;
-
             }
 
             _playerController = spawnableObject as PlayerController;
 
             _playerController.HealthController.Resurect();
-            
         }
 
         private void ReturnToPool()
         {
-
             if (!_poolService.TryDestroy(_playerController))
             {
-
                 Debug.LogError(ErrorMessages.SpawnableObjectDestroy(_playerController.Gameobject.name));
 
                 return;
-
             };
 
             _playerController = null;
-
         }
 
         #endregion
@@ -119,44 +105,32 @@ namespace Controllers.Services
 
         public void OnUpdate(float deltaTime)
         {
-
             if (_gameStateController.GameIsStopped) return;
 
             if (_playerController.HealthController.IsDead)
             {
-
                 OnPlayersDeath?.Invoke();
-
             };
-
         }
 
         public void StartGame()
         {
-
             if(_playerController == null)
             {
-
                 CreateFromPool();
-
-            }
+            };
 
             _playerController
                 .Gameobject
                 .transform
                 .SetPositionAndRotation(_playerTransform);
-
         }
 
         public void StopGame()
         {
-
             ReturnToPool();
-
         }
 
         #endregion
-
     }
-
 }

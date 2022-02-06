@@ -8,7 +8,6 @@ using Interfaces;
 using Models.Constructables;
 using Models.Constructables.ConfigurationModels;
 using Models.Managers;
-using Models.ScriptableObjects;
 using Spawnables.Services;
 using Spawnables.Spawners;
 
@@ -16,7 +15,6 @@ namespace Initializers
 {
     public class PlayerShooterInitializer : IGameInitializer
     {
-
         #region Constructors
 
         public PlayerShooterInitializer(List<ShooterConfigurationModel> shooters,
@@ -30,12 +28,10 @@ namespace Initializers
                                         GameStateController gameStateController,
                                         AudioServiceController audioServiceController)
         {
-
             var shooterModels = new LinkedList<ShooterModel>();
 
             for(int i = 0; i < shooters.Count; i++)
             {
-
                 ShooterConfigurationModel shooterConfiguration = shooters[i];
 
                 string poolSpaceName = PoolNames.PLAYER_POOL_PREFIX + shooterConfiguration.Projectile.GameobjectName;
@@ -47,17 +43,14 @@ namespace Initializers
 
                 if(!poolService.TryGetSpawner(poolSpaceName, out var projectileSpawner))
                 {
-
                     projectileSpawner = new ProjectileSpawner(shooterConfiguration.Projectile, poolSpaceName, LayerMasks.PLAYER_PROJECTILE, healthServiceController, audioServiceController);
                     
-                    poolService.CreatePool(projectileSpawner);
-                    
+                    poolService.CreatePool(projectileSpawner);    
                 }
 
                 shooterModel.Spawner = projectileSpawner;
 
                 shooterModels.AddLast(shooterModel);
-
             }
 
             var playerShooterController     = new PlayerShooterController(poolService, projectileServiceController, gameStateController);
@@ -70,11 +63,8 @@ namespace Initializers
             gameEventsHandler.AddGameOverHandler(playerShooterController.StopGame);
 
             controllersList.AddController(playerShooterController);
-
         }
 
         #endregion
-
     }
-
 }

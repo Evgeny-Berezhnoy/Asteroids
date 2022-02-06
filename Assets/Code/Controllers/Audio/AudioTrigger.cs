@@ -7,7 +7,6 @@ namespace Controllers.Audio
 {
     public class AudioTrigger : IController, IAudioTrigger
     {
-
         #region Events
 
         private event AudioTriggerDelegate _onTrigger;
@@ -33,10 +32,8 @@ namespace Controllers.Audio
 
         public AudioTrigger(string audioclip, string audioType)
         {
-
             _audioclip = audioclip;
             _audiotype = audioType;
-
         }
 
         #endregion
@@ -45,9 +42,7 @@ namespace Controllers.Audio
 
         ~AudioTrigger()
         {
-
             RemoveAllHandlers();
-
         }
 
         #endregion
@@ -56,45 +51,33 @@ namespace Controllers.Audio
 
         public void Play()
         {
-
             _onTrigger?.Invoke(_audioclip, _audiotype);
-            
         }
 
         public void AddHandler(AudioTriggerDelegate handler)
         {
-            
             _handlers.Add(handler);
 
             _onTrigger += handler;
-
         }
 
         public void RemoveHandler(AudioTriggerDelegate handler)
         {
-
             _handlers.Remove(handler);
 
             _onTrigger -= handler;
-
         }
 
         public void RemoveAllHandlers()
         {
-            
             for(int i = 0; i < _handlers.Count; i++)
             {
-
                 _onTrigger -= _handlers[i];
-
             };
 
             _handlers.Clear();
-
         }
 
         #endregion
-
     }
-
 }

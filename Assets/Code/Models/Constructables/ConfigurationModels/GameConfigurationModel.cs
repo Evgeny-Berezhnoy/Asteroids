@@ -7,7 +7,6 @@ namespace Models.Constructables.ConfigurationModels
 {
     public class GameConfigurationModel : ConfigurationModel
     {
-
         #region Fields
 
         public float EnemiesSpawnCooldown;
@@ -16,7 +15,6 @@ namespace Models.Constructables.ConfigurationModels
         public BackgroundConfigurationModel Background;
         public UserInterfaceConfigurationModel UserInterface;
         public AudioConfigurationModel Audio;
-        
         public List<ShooterConfigurationModel> Shooters = new List<ShooterConfigurationModel>();
         public List<EnemyConfigurationModel> Enemies    = new List<EnemyConfigurationModel>();
         
@@ -26,8 +24,7 @@ namespace Models.Constructables.ConfigurationModels
 
         public GameConfigurationModel(string configurationDirectory, Transform rootTransform) : base(configurationDirectory)
         {
-
-            var gameConfiguration = ModelsInitializer.LoadObject<GameConfiguration>(configurationDirectory);
+            var gameConfiguration = ResourcesLoader.LoadObject<GameConfiguration>(configurationDirectory);
 
             ScreenMap       = new ScreenMapConfigurationModel(gameConfiguration.ScreenMapPrefabDirectory, rootTransform);
             Player          = new PlayerConfigurationModel(gameConfiguration.PlayerConfigurationDirectory);
@@ -37,7 +34,6 @@ namespace Models.Constructables.ConfigurationModels
             
             CreateShooters(gameConfiguration.ShootersStorageDirectory);
             CreateEnemies(gameConfiguration.EnemiesStorageDirectory);
-
         }
 
         #endregion
@@ -46,36 +42,26 @@ namespace Models.Constructables.ConfigurationModels
 
         private void CreateShooters(string configurationDirectory)
         {
-            
-            var shootersStorage = ModelsInitializer.LoadObject<ShootersStorage>(configurationDirectory);
+            var shootersStorage = ResourcesLoader.LoadObject<ShootersStorage>(configurationDirectory);
 
             for (int i = 0; i < shootersStorage.Configurations.Count; i++)
             {
-
                 Shooters.Add(new ShooterConfigurationModel(shootersStorage.Configurations[i]));
-
             };
-
         }
 
         private void CreateEnemies(string configurationDirectory)
         {
-
-            EnemiesStorage enemiesStorage = ModelsInitializer.LoadObject<EnemiesStorage>(configurationDirectory);
+            EnemiesStorage enemiesStorage = ResourcesLoader.LoadObject<EnemiesStorage>(configurationDirectory);
 
             EnemiesSpawnCooldown = enemiesStorage.SpawnCooldown;
 
             for (int i = 0; i < enemiesStorage.EnemyConfigurations.Count; i++)
             {
-
                 Enemies.Add(new EnemyConfigurationModel(enemiesStorage.EnemyConfigurations[i]));
-
             };
-
         }
 
         #endregion
-
     }
-
 }

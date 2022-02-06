@@ -7,7 +7,6 @@ namespace Spawnables.Pools
 {
     public class PoolSpace
     {
-
         #region Fields
 
         private Transform _rootPool;
@@ -26,20 +25,16 @@ namespace Spawnables.Pools
 
         public PoolSpace(Transform rootPool, ISpawner spawner, int startQuntity = 0)
         {
-
             _rootPool               = rootPool;
             _spawnableObjectsQueue  = new OpenQueue<ISpawnableObject>();
             _spawner                = spawner;
 
             for (var i = 0; i < startQuntity; i++)
             {
-
-                ISpawnableObject spawnableObject = CreateObject();
+                var spawnableObject = CreateObject();
 
                 _spawnableObjectsQueue.Enqueue(spawnableObject);
-
             };
-
         }
 
         #endregion
@@ -48,61 +43,47 @@ namespace Spawnables.Pools
 
         public ISpawnableObject Pop()
         {
-
             ISpawnableObject spawnableObject = _spawnableObjectsQueue.Dequeue();
 
             if(spawnableObject == null)
             {
-
                 spawnableObject = CreateObject();
-
             };
 
             EnableObject(spawnableObject);
 
             return spawnableObject;
-
         }
 
         public void Push(ISpawnableObject spawnableObject)
         {
-
             DisableObject(spawnableObject);
 
             _spawnableObjectsQueue.Enqueue(spawnableObject);
-
         }
 
         private ISpawnableObject CreateObject()
         {
-
             var spawnableObject = _spawner.Spawn();
 
             DisableObject(spawnableObject);
 
             return spawnableObject;
-
         }
 
         private void EnableObject(ISpawnableObject spawnableObject)
         {
-
             spawnableObject.Gameobject.transform.SetParent(null);
             spawnableObject.Gameobject.SetActive(true);
-
         }
 
         private void DisableObject(ISpawnableObject spawnableObject)
         {
-
             spawnableObject.Gameobject.transform.parent = _rootPool;
             spawnableObject.Gameobject.transform.SetLocalPositionAndRotation();
             spawnableObject.Gameobject.SetActive(false);
-
         }
 
         #endregion
-
     }
-
 }

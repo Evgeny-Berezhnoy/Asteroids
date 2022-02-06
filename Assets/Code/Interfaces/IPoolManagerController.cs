@@ -5,15 +5,11 @@ namespace Interfaces
 {
     public interface IPoolManagerController : IPoolServiceController
     {
-
         #region Methods
 
         void CreateFromPool(ISpawner spawner, List<Transform> spawnPoints);
-        
         void ReturnToPool(ISpawnableObject spawnableObject);
 
         #endregion
-
     }
-
 }

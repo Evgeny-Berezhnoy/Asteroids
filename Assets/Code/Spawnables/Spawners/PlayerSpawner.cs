@@ -11,7 +11,6 @@ namespace Spawnables.Spawners
 {
     public class PlayerSpawner : Spawner<PlayerConfigurationModel>
     {
-
         #region Fields
 
         private HealthServiceController _healthServiceController;
@@ -22,9 +21,7 @@ namespace Spawnables.Spawners
 
         public PlayerSpawner(IPrefabData prefab, HealthServiceController healthServiceController) : base(prefab, prefab.GameobjectName)
         {
-
             _healthServiceController = healthServiceController;
-
         }
 
         #endregion
@@ -33,7 +30,6 @@ namespace Spawnables.Spawners
 
         public override ISpawnableObject Spawn()
         {
-
             GameObject gameObject = new GameObject(_prefabName);
 
             gameObject
@@ -47,11 +43,8 @@ namespace Spawnables.Spawners
             _healthServiceController.Insert(gameObject, playerController.HealthController);
 
             return playerController;
-
         }
 
         #endregion
-
     }
-
 }

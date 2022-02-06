@@ -9,7 +9,6 @@ namespace Controllers
 {
     public class BackgroundController : ISpawnableObject, IUpdate
     {
-
         #region Fields
 
         private GameObject _gameObject;
@@ -32,11 +31,9 @@ namespace Controllers
 
         public BackgroundController(GameObject gameObject, BackgroundConfigurationModel backgroundConfigurationModel)
         {
-
             _gameObject     = gameObject;
 
-            MoveController  = new NavigableMoveController(_gameObject.transform, backgroundConfigurationModel.Speed, new NavigatorController(_gameObject.transform));
-            
+            MoveController  = new NavigableMoveController(_gameObject.transform, backgroundConfigurationModel.Speed, new NavigatorController(_gameObject.transform));   
         }
 
         #endregion
@@ -45,32 +42,22 @@ namespace Controllers
 
         public void OnUpdate(float deltaTime)
         {
-
             if (!_gameObject.activeSelf) return;
 
             if (MoveController is IUpdate updateMoveController)
             {
-
                 updateMoveController.OnUpdate(deltaTime);
-
             }
 
             if (MoveController is INavigable navigableController)
             {
-
                 if (navigableController.Navigator.Arrived)
                 {
-
                     _gameObject.SetActive(false);
-
                 };
-
             };
-
         }
 
         #endregion
-
     }
-
 }

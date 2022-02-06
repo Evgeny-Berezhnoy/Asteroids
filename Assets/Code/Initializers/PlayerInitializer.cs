@@ -9,7 +9,6 @@ namespace Initializers
 {
     public class PlayerInitializer : IGameInitializer
     {
-
         #region Constructors
 
         public PlayerInitializer(GameConfigurationModel gameConfiguration,
@@ -23,7 +22,6 @@ namespace Initializers
                                     GameStateController gameStateController,
                                     AudioServiceController audioServiceController)
         {
-
             var playerServiceController = new PlayerServiceController(screenMapModel.PlayerStartTransform, gameConfiguration.Player, poolService, healthServiceController, gameStateController);
 
             new PlayerShooterInitializer(gameConfiguration.Shooters,
@@ -45,11 +43,8 @@ namespace Initializers
             gameEventsHandler.AddGameOverHandler(playerServiceController.StopGame);
 
             controllersList.AddController(playerServiceController);
-
         }
 
         #endregion
-
     }
-
 }

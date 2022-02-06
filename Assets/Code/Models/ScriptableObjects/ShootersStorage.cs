@@ -4,11 +4,9 @@ using Interfaces;
 
 namespace Models.ScriptableObjects
 {
-
     [CreateAssetMenu(menuName = "Configurations/Shooters/Storage")]
     public class ShootersStorage : ScriptableObject, IConfigurationStorage
     {
-
         #region Fields
 
         [SerializeField] private List<string> _configurations;
@@ -20,7 +18,5 @@ namespace Models.ScriptableObjects
         public List<string> Configurations => _configurations;
         
         #endregion
-
     }
-
 }

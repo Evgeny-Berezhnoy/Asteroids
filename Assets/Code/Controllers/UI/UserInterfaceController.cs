@@ -9,12 +9,10 @@ namespace Controllers.UI
 {
     public class UserInterfaceController : IController, IUpdate 
     {
-
         #region Fields
         
         private PlayScreenController _playScreenController;
         private GameOverScreenController _gameOverScreenController;
-
         private Stack<BaseUIController> _openedWindows;
         private List<IUpdate> _updateControllers;
         
@@ -24,10 +22,8 @@ namespace Controllers.UI
 
         public UserInterfaceController(UserInterfaceConfigurationModel userInterfaceConfiguration, RectTransform userInterfaceTransform, GameEventsHandler gameEventsHandler, PointsController pointsController)
         {
-
             _playScreenController       = new PlayScreenController(userInterfaceConfiguration.PlayScreen, userInterfaceTransform, pointsController);
             _gameOverScreenController   = new GameOverScreenController(userInterfaceConfiguration.GameOverScreen, userInterfaceTransform);
-
             _openedWindows              = new Stack<BaseUIController>();
             _updateControllers          = new List<IUpdate>();
             
@@ -35,7 +31,6 @@ namespace Controllers.UI
             gameEventsHandler.AddGameOverHandler(ActivateGameOverScreen);
 
             ActivatePlayScreen();
-
         }
 
         #endregion
@@ -44,43 +39,33 @@ namespace Controllers.UI
 
         public void ActivatePlayScreen()
         {
-
             _updateControllers.Remove(_gameOverScreenController);
 
             StartScreen(_playScreenController);
-
         }
 
         public void ActivateGameOverScreen()
         {
-
             if(!_updateControllers.Any(x => x == _gameOverScreenController))
             {
-
                 _updateControllers.Add(_gameOverScreenController);
-
             };
 
             StartScreen(_gameOverScreenController);
-
         }
 
         private void StartScreen(BaseUIController screen)
         {
-
             for (int i = 0; i < _openedWindows.Count; i++)
             {
-
                 _openedWindows
                     .Pop()
                     .Disable();
-
             };
 
             _openedWindows.Push(screen);
 
             screen.Enable();
-
         }
 
         #endregion
@@ -89,18 +74,12 @@ namespace Controllers.UI
 
         public void OnUpdate(float deltaTime)
         {
-
             for(int i = 0; i < _updateControllers.Count; i++)
             {
-
                 _updateControllers[i].OnUpdate(deltaTime);
-
             };
-
         }
 
         #endregion
-
     }
-
 }

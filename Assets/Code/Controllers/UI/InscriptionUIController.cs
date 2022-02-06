@@ -23,32 +23,17 @@ namespace Controllers.UI
 
         public InscriptionUIController(Text inscription)
         {
-
             _inscription    = inscription;
-            _gameObject     = inscription.gameObject;
-            
+            _gameObject     = inscription.gameObject;   
         }
 
         #endregion
 
         #region Base Methods
 
-        public override void Enable()
-        {
-
-            _gameObject.SetActive(true);
-
-        }
-        
-        public override void Disable()
-        {
-
-            _gameObject.SetActive(false);
-
-        }
+        public override void Enable() => _gameObject.SetActive(true);
+        public override void Disable() => _gameObject.SetActive(false);
 
         #endregion
-
     }
-
 }

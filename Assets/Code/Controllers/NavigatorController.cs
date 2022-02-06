@@ -9,7 +9,6 @@ namespace Controllers
 {
     public class NavigatorController : IController, INavigator
     {
-
         #region Events
 
         public event Action OnReachingPoint;
@@ -29,18 +28,14 @@ namespace Controllers
 
         public NavigatorController(Transform travelerTransform)
         {
-
             TravelerTransform = travelerTransform;
 
             Arrived = true;
-
         }
 
         public NavigatorController(Transform travelerTransform, LinkedList<Transform> destinations) : this(travelerTransform)
         {
-
             SetRoute(destinations);
-
         }
 
         #endregion
@@ -49,16 +44,12 @@ namespace Controllers
 
         ~NavigatorController()
         {
-
             var subscriptions = OnReachingPoint.GetInvocationList();
 
             for(int i = subscriptions.Length; i >= 0; i--)
             {
-
                 OnReachingPoint -= subscriptions[i] as Action;
-
             };
-
         }
 
         #endregion
@@ -67,26 +58,12 @@ namespace Controllers
 
         public void SetRoute(LinkedList<Transform> destinations, LinkedListNode<Transform> currentDestination = null)
         {
+            Arrived         = false;
+            Destinations    = destinations;
 
-            Arrived = false;
-
-            Destinations = destinations;
-
-            if (currentDestination == null)
-            {
-
-                CurrentDestination = destinations.First;
-
-            }
-            else
-            {
-
-                CurrentDestination = currentDestination;
-
-            };
-
+            CurrentDestination = (currentDestination != null ? currentDestination : destinations.First );
+            
             TravelerTransform.SetPositionAndRotation(CurrentDestination.Value);
-
         }
 
         #endregion
@@ -95,7 +72,6 @@ namespace Controllers
 
         public void Direct(Vector3 direction)
         {
-
             if (Arrived) return;
 
             TravelerTransform.position += direction;
@@ -104,24 +80,17 @@ namespace Controllers
 
             if (!CurrentDestination.Equals(Destinations.First))
             {
-
                 OnReachingPoint?.Invoke();
-
             };
 
             CurrentDestination = CurrentDestination.Next;
 
             if(CurrentDestination == null)
             {
-
                 Arrived = true;
-
             };
-
         }
 
         #endregion
-
     }
-
 }

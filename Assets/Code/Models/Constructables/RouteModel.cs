@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Models.Constructables
 {
-
     [Serializable]
     public class RouteModel
     {
-
         #region Fields
 
         public LinkedList<Transform> Destinations;
@@ -19,13 +17,9 @@ namespace Models.Constructables
 
         public RouteModel()
         {
-
             Destinations = new LinkedList<Transform>();
-
         }
 
         #endregion
-
     }
-
 }

@@ -1,8 +1,8 @@
 ﻿namespace Constants
 {
-
     public static class GameobjectNames
     {
+        #region Static fields
 
         public static readonly string BACKGROUND                = "Background";
         public static readonly string BACKGROUND_MAP            = "Background map";
@@ -18,7 +18,7 @@
         public static readonly string SCREEN_MAP_MODEL          = "Screen map model";
         public static readonly string SHOOTER_MODEL             = "Shooter model";
         public static readonly string USER_INTERFACE            = "User interface";
-        
-    }
 
+        #endregion
+    }
 }

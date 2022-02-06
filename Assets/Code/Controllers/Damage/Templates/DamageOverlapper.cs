@@ -7,7 +7,6 @@ namespace Controllers.Damage.Overlap
     public abstract class DamageOverlapper<T> : IOverlapper
         where T : Collider2D
     {
-
         #region Fields
 
         protected Transform _gameObjectTransform;
@@ -20,11 +19,9 @@ namespace Controllers.Damage.Overlap
 
         public DamageOverlapper(Transform gameObjectTransform, T collider, LayerMask damageLayerMask)
         {
-
             _gameObjectTransform    = gameObjectTransform;
             _collider               = collider;
             _damageLayerMask        = damageLayerMask;
-
         }
 
         #endregion
@@ -34,8 +31,5 @@ namespace Controllers.Damage.Overlap
         public abstract List<GameObject> Overlap();
 
         #endregion
-
-
     }
-
 }

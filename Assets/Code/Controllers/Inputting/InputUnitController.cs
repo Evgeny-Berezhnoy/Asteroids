@@ -5,11 +5,9 @@ using Interfaces.Events;
 
 namespace Controllers.Inputting
 {
-
     public abstract class InputUnitController<T> : IController, IEventHandler<T>
         where T : Delegate
     {
-
         #region Fields
 
         protected List<T> _handlers;
@@ -26,9 +24,7 @@ namespace Controllers.Inputting
 
         public InputUnitController()
         {
-
             _handlers = new List<T>();
-        
         }
 
         #endregion
@@ -37,38 +33,17 @@ namespace Controllers.Inputting
 
         ~InputUnitController()
         {
-
             RemoveAllHandlers();
-
         }
 
         #endregion
 
         #region Interfaces Methods
 
-        public virtual void AddHandler(T handler)
-        {
-
-            _handlers.Add(handler);
-
-        }
-
-        public virtual void RemoveHandler(T handler)
-        {
-
-            _handlers.Remove(handler);
-
-        }
-        
-        public virtual void RemoveAllHandlers()
-        {
-
-            _handlers.Clear();
-
-        }
+        public virtual void AddHandler(T handler) => _handlers.Add(handler);
+        public virtual void RemoveHandler(T handler) => _handlers.Remove(handler);
+        public virtual void RemoveAllHandlers() => _handlers.Clear();
 
         #endregion
-
     }
-
 }
